@@ -1,7 +1,7 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AFTER THE RAIN | Cinematic Yard</title><style>html,body{margin:0;overflow:hidden;background:#080e14;font-family:Inter,Arial,sans-serif;color:#dfe9f1}canvas{display:block}#hud{position:fixed;inset:0;pointer-events:none}#top{position:absolute;top:26px;left:32px;font-size:11px;letter-spacing:4px;color:#e4b994;text-shadow:0 2px 8px #000}#top strong{display:block;font-size:24px;letter-spacing:7px;color:#fff;margin-top:6px}#cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;display:grid;place-items:center;filter:drop-shadow(0 1px 2px #000);opacity:.95}#cross:before,#cross:after{content:"";position:absolute;background:#e9f5ff;border-radius:2px;box-shadow:0 0 4px #000}#cross:before{width:2px;height:24px}#cross:after{width:24px;height:2px}#cross i{position:absolute;width:5px;height:5px;border-radius:50%;background:#eab67e;z-index:1;box-shadow:0 0 0 2px #101820}#cross:not(.aiming){opacity:.7}#utilityContent select{background:#243c4b;color:#f0f7fb;border:1px solid #8ca8b577;border-radius:8px;padding:9px;width:160px}#utilityContent .settingNote{font-size:11px;color:#a5bccb;line-height:1.6}#bottom{position:absolute;bottom:25px;left:32px;font-size:11px;letter-spacing:2px;color:#b8c6cd}#perf{position:absolute;right:25px;bottom:25px;font:11px monospace;color:#b8c6cd}#intro{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(90deg,#071019c9,#0d141a80);pointer-events:auto;cursor:pointer}#intro .panel{text-align:center;border:1px solid #b2a29365;padding:35px 55px;background:#10171cc9;box-shadow:0 30px 90px #0008}#intro h1{font-size:36px;letter-spacing:9px;font-weight:300;margin:0 0 14px}#intro p{font-size:12px;letter-spacing:3px;color:#e6b58b;line-height:2}#intro button{margin-top:16px;border:1px solid #dfb18a;background:#dfb18a1e;color:#fce2c9;padding:13px 35px;letter-spacing:3px;cursor:pointer}#err{position:absolute;top:15px;right:15px;max-width:400px;color:#ffb2a8;background:#1b1010df;padding:12px;display:none;pointer-events:auto}#loading{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:12px;letter-spacing:4px;color:#f3d0ac}#dogMenu,#dogPanel,#buildBar{position:fixed;z-index:30;pointer-events:auto;font-family:Inter,Arial,sans-serif;color:#eaf2f7}#dogMenu{display:none;min-width:220px;background:#111d28ee;border:1px solid #8aa4b455;border-radius:15px;padding:8px;box-shadow:0 22px 65px #000b;backdrop-filter:blur(16px)}.menuChoice{display:flex;align-items:center;gap:12px;width:100%;padding:13px 15px;border:0;border-radius:10px;background:transparent;color:#eaf2f7;text-align:left;font-size:14px;cursor:pointer}.menuChoice:hover{background:#6a91aa30}.menuChoice span{font-size:21px}#dogPanel{display:none;right:22px;top:92px;width:min(330px,calc(100vw - 44px));background:#111d28f2;border:1px solid #a4bcc44d;border-radius:17px;padding:18px;box-shadow:0 20px 65px #000b;backdrop-filter:blur(16px)}#dogPanel h3{margin:2px 0 7px;font-size:18px}#dogPanel p{font-size:12px;color:#a9bfcc;line-height:1.6}#dogPanel button,#buildBar button{border:1px solid #7596a75c;background:#263d4c;color:#edf7ff;border-radius:10px;padding:11px 13px;cursor:pointer;margin:4px 3px 4px 0}#dogPanel button.active,#buildBar button.active{background:#c18b59;color:#10151a;border-color:#e8b47e}#dogPanel .close{float:right;background:transparent;padding:3px 9px}#buildBar{display:none;bottom:75px;left:50%;transform:translateX(-50%);background:#111d28ed;border:1px solid #7c9da74d;padding:10px 14px;border-radius:15px;white-space:nowrap;backdrop-filter:blur(14px)}#buildBar small{display:block;color:#b2c7d2;margin-top:4px}#placementHint{position:fixed;left:50%;top:58%;transform:translateX(-50%);z-index:22;color:#f4d9af;font-size:12px;pointer-events:none;text-shadow:0 2px 6px #000;display:none}#materialGallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.matCard{padding:10px!important;margin:0!important;display:flex;flex-direction:column;align-items:center;gap:6px}.matCard canvas{width:76px;height:76px;border-radius:8px;background:#111b24}.matCard b{font-size:12px}#buildBar{display:none;align-items:center;gap:8px}#buildLabel{font-size:12px;color:#d9e5eb}#confirmBuild{background:#d8a575!important;color:#15212a!important}#dogPanel{width:min(385px,calc(100vw - 44px))}.matCard{transition:transform .18s,border-color .18s,box-shadow .18s}.matCard:hover{transform:translateY(-3px);border-color:#9fe6ff!important;box-shadow:0 6px 22px #55c8ff25}.matCard:focus-visible{outline:2px solid #c6e9ff}#placementHint{background:#07121bcf;padding:10px 17px;border:1px solid #85cbe855;border-radius:12px;white-space:nowrap}.commandTile{display:flex;align-items:center;gap:13px;width:100%;margin:8px 0!important;padding:13px 15px!important;text-align:left;font-weight:600;font-size:14px}.commandTile .commandIcon{display:grid;place-items:center;width:37px;height:37px;flex:none;border-radius:11px;background:#91c8e021;color:#b9e9ff;font-size:22px}.commandTile.active .commandIcon{background:#18232a;color:#f6e5d4}#utilityNav{position:fixed;z-index:45;top:23px;right:24px;display:flex;gap:9px;pointer-events:auto}#utilityNav button{display:flex;align-items:center;gap:9px;border:1px solid #b0c9d34b;border-radius:12px;background:#10202cd9;color:#e8f3f8;padding:11px 15px;font-size:12px;letter-spacing:.5px;cursor:pointer;box-shadow:0 8px 28px #0007;backdrop-filter:blur(16px);transition:background .15s,border-color .15s}#utilityNav button:hover{background:#284050;border-color:#e1bb8b}#utilityNav svg{width:17px;height:17px;stroke:#e4b88b;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}#utilityOverlay{position:fixed;inset:0;z-index:70;display:none;place-items:center;background:#03080c9c;pointer-events:auto;backdrop-filter:blur(7px)}#utilityPanel{width:min(450px,calc(100vw - 48px));border:1px solid #a7c2d455;border-radius:22px;background:linear-gradient(145deg,#1b2d39f7,#0e1924f9);box-shadow:0 30px 90px #000d;padding:26px;color:#eef6fa}#utilityPanel header{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}#utilityPanel h2{font-size:20px;margin:0;letter-spacing:.3px}#utilityClose{border:1px solid #7f9eac55;background:#213745;color:#e9f4fa;border-radius:9px;padding:7px 11px;cursor:pointer}#utilityContent{font-size:13px;color:#b9cad5}#utilityContent .controlRow{display:flex;align-items:center;justify-content:space-between;padding:11px 3px;border-bottom:1px solid #8ca8b521;gap:16px}#utilityContent kbd{background:#304654;border:1px solid #70879577;border-radius:6px;color:#f7e3c7;padding:5px 9px;white-space:nowrap;font:12px Inter,Arial}#utilityContent p{line-height:1.7}#rainSlider{width:100%;accent-color:#e5b37f;cursor:pointer}#rainValue{font-weight:700;color:#f1d0a9}#utilityContent .rangeHead{display:flex;justify-content:space-between;margin:18px 0 12px}@media(max-width:650px){#utilityNav{top:12px;right:12px}#utilityNav button{padding:9px 10px;font-size:11px}#top{top:73px;left:16px}#bottom{font-size:9px;left:12px;right:12px;line-height:1.7}}#transformTool{position:fixed;z-index:55;left:50%;bottom:92px;transform:translateX(-50%);display:none;pointer-events:auto;min-width:330px;max-width:calc(100vw - 28px);padding:15px;border:1px solid #91c9df77;border-radius:17px;background:linear-gradient(145deg,#182c3aef,#0b1926f5);box-shadow:0 18px 60px #000a;color:#eaf6ff;backdrop-filter:blur(18px);font:13px Inter,Arial}#transformTool .toolTitle{font-weight:700;margin-bottom:11px;color:#e9d4b9}#transformTool .toolButtons{display:flex;gap:7px}#transformTool button{flex:1;background:#233c4b;color:#eaf7ff;border:1px solid #7194a266;border-radius:10px;padding:10px;cursor:pointer}#transformTool button.active{background:#b9dff0;color:#10222d}#transformTool .toolFooter{display:flex;gap:8px;margin-top:10px}#transformTool #applyTransform{background:#d9ae78;color:#19242d;font-weight:700}#transformTool .toolHint{font-size:11px;color:#b1c8d3;margin:10px 0 0;line-height:1.6}#transformTool .toolError{color:#ffad9c}#transformTool .toolFooter button{flex:1}#bootScreen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(ellipse at 75% 72%,#473021 0%,#15212c 39%,#060c14 83%);color:#e8f1f7;transition:opacity .8s ease,visibility .8s ease;pointer-events:auto}#bootScreen.done{opacity:0;visibility:hidden;pointer-events:none}#bootScreen .bootPanel{width:min(480px,calc(100vw - 56px));padding:36px 28px;text-align:center}#bootScreen .bootMark{display:inline-grid;place-items:center;width:72px;height:72px;margin-bottom:22px;border:1px solid #e5b78565;border-radius:50%;box-shadow:0 0 0 8px #e5b78508,0 0 45px #d69b5830;color:#f4c997;font-size:34px;animation:bootPulse 2.6s ease-in-out infinite}#bootScreen h2{font-weight:300;font-size:clamp(26px,5vw,39px);letter-spacing:7px;margin:0 0 9px}#bootScreen .bootSub{color:#e6ba8c;font-size:10px;letter-spacing:3px;margin:0 0 40px}#bootScreen .bootTrack{height:3px;background:#70818c40;border-radius:5px;overflow:hidden}#bootFill{height:100%;width:3%;background:linear-gradient(90deg,#a5bccc,#f0bd7f);box-shadow:0 0 18px #ffcc85;transition:width .3s ease}#bootScreen .bootDetails{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font:11px ui-monospace,monospace;color:#9eb1c0}#bootPercent{color:#f5c994}#bootScreen .bootFooter{margin-top:38px;font-size:10px;letter-spacing:1.5px;color:#6f8799}@keyframes bootPulse{50%{box-shadow:0 0 0 14px #e5b78508,0 0 65px #d69b5855}}@media(prefers-reduced-motion:reduce){#bootScreen .bootMark{animation:none}#bootScreen{transition:none}}
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AFTER THE RAIN | Cinematic Yard</title><style>html,body{margin:0;overflow:hidden;background:#080e14;font-family:Inter,Arial,sans-serif;color:#dfe9f1}canvas{display:block}#hud{position:fixed;inset:0;pointer-events:none}#top{position:absolute;top:26px;left:32px;font-size:11px;letter-spacing:4px;color:#e4b994;text-shadow:0 2px 8px #000}#top strong{display:block;font-size:24px;letter-spacing:7px;color:#fff;margin-top:6px}#cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;display:grid;place-items:center;filter:drop-shadow(0 1px 2px #000);opacity:.95}#cross:before,#cross:after{content:"";position:absolute;background:#e9f5ff;border-radius:2px;box-shadow:0 0 4px #000}#cross:before{width:2px;height:24px}#cross:after{width:24px;height:2px}#cross i{position:absolute;width:5px;height:5px;border-radius:50%;background:#eab67e;z-index:1;box-shadow:0 0 0 2px #101820}#cross:not(.aiming){opacity:1}#utilityContent select{background:#243c4b;color:#f0f7fb;border:1px solid #8ca8b577;border-radius:8px;padding:9px;width:160px}#utilityContent .settingNote{font-size:11px;color:#a5bccb;line-height:1.6}#bottom{position:absolute;bottom:25px;left:32px;font-size:11px;letter-spacing:2px;color:#b8c6cd}#perf{position:absolute;right:25px;bottom:25px;font:11px monospace;color:#b8c6cd}#intro{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(90deg,#071019c9,#0d141a80);pointer-events:auto;cursor:pointer}#intro .panel{text-align:center;border:1px solid #b2a29365;padding:35px 55px;background:#10171cc9;box-shadow:0 30px 90px #0008}#intro h1{font-size:36px;letter-spacing:9px;font-weight:300;margin:0 0 14px}#intro p{font-size:12px;letter-spacing:3px;color:#e6b58b;line-height:2}#intro button{margin-top:16px;border:1px solid #dfb18a;background:#dfb18a1e;color:#fce2c9;padding:13px 35px;letter-spacing:3px;cursor:pointer}#err{position:absolute;top:15px;right:15px;max-width:400px;color:#ffb2a8;background:#1b1010df;padding:12px;display:none;pointer-events:auto}#loading{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:12px;letter-spacing:4px;color:#f3d0ac}#dogMenu,#dogPanel,#buildBar{position:fixed;z-index:30;pointer-events:auto;font-family:Inter,Arial,sans-serif;color:#eaf2f7}#dogMenu{display:none;min-width:220px;background:#111d28ee;border:1px solid #8aa4b455;border-radius:15px;padding:8px;box-shadow:0 22px 65px #000b;backdrop-filter:blur(16px)}.menuChoice{display:flex;align-items:center;gap:12px;width:100%;padding:13px 15px;border:0;border-radius:10px;background:transparent;color:#eaf2f7;text-align:left;font-size:14px;cursor:pointer}.menuChoice:hover{background:#6a91aa30}.menuChoice span{font-size:21px}#dogPanel{display:none;right:22px;top:92px;width:min(330px,calc(100vw - 44px));background:#111d28f2;border:1px solid #a4bcc44d;border-radius:17px;padding:18px;box-shadow:0 20px 65px #000b;backdrop-filter:blur(16px)}#dogPanel h3{margin:2px 0 7px;font-size:18px}#dogPanel p{font-size:12px;color:#a9bfcc;line-height:1.6}#dogPanel button,#buildBar button{border:1px solid #7596a75c;background:#263d4c;color:#edf7ff;border-radius:10px;padding:11px 13px;cursor:pointer;margin:4px 3px 4px 0}#dogPanel button.active,#buildBar button.active{background:#c18b59;color:#10151a;border-color:#e8b47e}#dogPanel .close{float:right;background:transparent;padding:3px 9px}#buildBar{display:none;bottom:75px;left:50%;transform:translateX(-50%);background:#111d28ed;border:1px solid #7c9da74d;padding:10px 14px;border-radius:15px;white-space:nowrap;backdrop-filter:blur(14px)}#buildBar small{display:block;color:#b2c7d2;margin-top:4px}#placementHint{position:fixed;left:50%;top:58%;transform:translateX(-50%);z-index:22;color:#f4d9af;font-size:12px;pointer-events:none;text-shadow:0 2px 6px #000;display:none}#materialGallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.matCard{padding:10px!important;margin:0!important;display:flex;flex-direction:column;align-items:center;gap:6px}.matCard canvas{width:76px;height:76px;border-radius:8px;background:#111b24}.matCard b{font-size:12px}#buildBar{display:none;align-items:center;gap:8px}#buildLabel{font-size:12px;color:#d9e5eb}#confirmBuild{background:#d8a575!important;color:#15212a!important}#dogPanel{width:min(385px,calc(100vw - 44px))}.matCard{transition:transform .18s,border-color .18s,box-shadow .18s}.matCard:hover{transform:translateY(-3px);border-color:#9fe6ff!important;box-shadow:0 6px 22px #55c8ff25}.matCard:focus-visible{outline:2px solid #c6e9ff}#placementHint{background:#07121bcf;padding:10px 17px;border:1px solid #85cbe855;border-radius:12px;white-space:nowrap}.commandTile{display:flex;align-items:center;gap:13px;width:100%;margin:8px 0!important;padding:13px 15px!important;text-align:left;font-weight:600;font-size:14px}.commandTile .commandIcon{display:grid;place-items:center;width:37px;height:37px;flex:none;border-radius:11px;background:#91c8e021;color:#b9e9ff;font-size:22px}.commandTile.active .commandIcon{background:#18232a;color:#f6e5d4}#utilityNav{position:fixed;z-index:45;top:23px;right:24px;display:flex;gap:9px;pointer-events:auto}#utilityNav button{display:flex;align-items:center;gap:9px;border:1px solid #b0c9d34b;border-radius:12px;background:#10202cd9;color:#e8f3f8;padding:11px 15px;font-size:12px;letter-spacing:.5px;cursor:pointer;box-shadow:0 8px 28px #0007;backdrop-filter:blur(16px);transition:background .15s,border-color .15s}#utilityNav button:hover{background:#284050;border-color:#e1bb8b}#utilityNav svg{width:17px;height:17px;stroke:#e4b88b;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}#utilityOverlay{position:fixed;inset:0;z-index:70;display:none;place-items:center;background:#03080c9c;pointer-events:auto;backdrop-filter:blur(7px)}#utilityPanel{width:min(450px,calc(100vw - 48px));border:1px solid #a7c2d455;border-radius:22px;background:linear-gradient(145deg,#1b2d39f7,#0e1924f9);box-shadow:0 30px 90px #000d;padding:26px;color:#eef6fa}#utilityPanel header{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}#utilityPanel h2{font-size:20px;margin:0;letter-spacing:.3px}#utilityClose{border:1px solid #7f9eac55;background:#213745;color:#e9f4fa;border-radius:9px;padding:7px 11px;cursor:pointer}#utilityContent{font-size:13px;color:#b9cad5}#utilityContent .controlRow{display:flex;align-items:center;justify-content:space-between;padding:11px 3px;border-bottom:1px solid #8ca8b521;gap:16px}#utilityContent kbd{background:#304654;border:1px solid #70879577;border-radius:6px;color:#f7e3c7;padding:5px 9px;white-space:nowrap;font:12px Inter,Arial}#utilityContent p{line-height:1.7}#rainSlider{width:100%;accent-color:#e5b37f;cursor:pointer}#rainValue{font-weight:700;color:#f1d0a9}#utilityContent .rangeHead{display:flex;justify-content:space-between;margin:18px 0 12px}@media(max-width:650px){#utilityNav{top:12px;right:12px}#utilityNav button{padding:9px 10px;font-size:11px}#top{top:73px;left:16px}#bottom{font-size:9px;left:12px;right:12px;line-height:1.7}}#transformTool{position:fixed;z-index:55;left:50%;bottom:92px;transform:translateX(-50%);display:none;pointer-events:auto;min-width:330px;max-width:calc(100vw - 28px);padding:15px;border:1px solid #91c9df77;border-radius:17px;background:linear-gradient(145deg,#182c3aef,#0b1926f5);box-shadow:0 18px 60px #000a;color:#eaf6ff;backdrop-filter:blur(18px);font:13px Inter,Arial}#transformTool .toolTitle{font-weight:700;margin-bottom:11px;color:#e9d4b9}#transformTool .toolButtons{display:flex;gap:7px}#transformTool button{flex:1;background:#233c4b;color:#eaf7ff;border:1px solid #7194a266;border-radius:10px;padding:10px;cursor:pointer}#transformTool button.active{background:#b9dff0;color:#10222d}#transformTool .toolFooter{display:flex;gap:8px;margin-top:10px}#transformTool #applyTransform{background:#d9ae78;color:#19242d;font-weight:700}#transformTool .toolHint{font-size:11px;color:#b1c8d3;margin:10px 0 0;line-height:1.6}#transformTool .toolError{color:#ffad9c}#transformTool .toolFooter button{flex:1}#bootScreen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(ellipse at 75% 72%,#473021 0%,#15212c 39%,#060c14 83%);color:#e8f1f7;transition:opacity .8s ease,visibility .8s ease;pointer-events:auto}#bootScreen.done{opacity:0;visibility:hidden;pointer-events:none}#bootScreen .bootPanel{width:min(480px,calc(100vw - 56px));padding:36px 28px;text-align:center}#bootScreen .bootMark{display:inline-grid;place-items:center;width:72px;height:72px;margin-bottom:22px;border:1px solid #e5b78565;border-radius:50%;box-shadow:0 0 0 8px #e5b78508,0 0 45px #d69b5830;color:#f4c997;font-size:34px;animation:bootPulse 2.6s ease-in-out infinite}#bootScreen h2{font-weight:300;font-size:clamp(26px,5vw,39px);letter-spacing:7px;margin:0 0 9px}#bootScreen .bootSub{color:#e6ba8c;font-size:10px;letter-spacing:3px;margin:0 0 40px}#bootScreen .bootTrack{height:3px;background:#70818c40;border-radius:5px;overflow:hidden}#bootFill{height:100%;width:3%;background:linear-gradient(90deg,#a5bccc,#f0bd7f);box-shadow:0 0 18px #ffcc85;transition:width .3s ease}#bootScreen .bootDetails{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font:11px ui-monospace,monospace;color:#9eb1c0}#bootPercent{color:#f5c994}#bootScreen .bootFooter{margin-top:38px;font-size:10px;letter-spacing:1.5px;color:#6f8799}@keyframes bootPulse{50%{box-shadow:0 0 0 14px #e5b78508,0 0 65px #d69b5855}}@media(prefers-reduced-motion:reduce){#bootScreen .bootMark{animation:none}#bootScreen{transition:none}}
 /* Mobile-first gamepad: isolated touch surfaces, safe areas and landscape support. */
 html,body{overscroll-behavior:none}#mobilePad{display:none;position:fixed;inset:0;z-index:38;pointer-events:none;touch-action:none;user-select:none;-webkit-user-select:none}#mobilePad button{pointer-events:auto;touch-action:none;border:1px solid #a9d7e577;background:#122d3dcc;color:#fff;border-radius:15px;min-width:56px;min-height:52px;font-size:13px;font-weight:700;backdrop-filter:blur(7px)}#mobileStick{position:absolute;left:max(16px,env(safe-area-inset-left));bottom:max(25px,env(safe-area-inset-bottom));width:142px;height:142px;border:2px solid #b1d9eb77;border-radius:50%;background:#16314070;pointer-events:auto;touch-action:none}#mobileKnob{position:absolute;left:50%;top:50%;width:64px;height:64px;border-radius:50%;background:#b9d7e9aa;border:2px solid #fff9;transform:translate(-50%,-50%);box-shadow:0 4px 16px #0009;pointer-events:none}#mobileLook{position:absolute;right:0;top:13%;width:55%;height:65%;pointer-events:auto;touch-action:none}#mobileActions{position:absolute;right:max(12px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(2,64px);gap:9px;pointer-events:none}#mobileActions button{width:64px;min-height:54px;padding:5px;font-size:11px}#mobileActions button strong{display:block;font-size:20px}#mobileActions button.pressed{background:#b78652;color:#101b23}#mobileTip{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:11px;color:#fff9;text-shadow:0 1px 3px #000;white-space:nowrap}body.mobile-play #mobilePad{display:block}body.mobile-play #bottom{display:none}body.mobile-play #top{top:65px;left:12px;font-size:8px}body.mobile-play #top strong{font-size:14px;letter-spacing:3px}body.mobile-play #perf{top:68px;right:12px;bottom:auto}body.mobile-play #placementHint{top:38%;font-size:10px;max-width:86vw;white-space:normal;text-align:center}body.mobile-play #buildBar{bottom:174px;max-width:90vw;white-space:normal;font-size:10px}body.mobile-play #dogPanel{top:58px;right:8px;max-height:65dvh;overflow:auto;width:min(350px,calc(100vw - 24px))}body.mobile-play #transformTool{bottom:155px;max-height:55dvh;overflow:auto;padding:10px;min-width:0;width:min(370px,calc(100vw - 20px))}body.mobile-play #utilityPanel{max-height:80dvh;overflow:auto;padding:17px}body.mobile-play #utilityNav button{font-size:0;gap:0}body.mobile-play #utilityNav svg{width:21px;height:21px}@media (max-height:460px){body.mobile-play #mobileStick{width:112px;height:112px;bottom:10px}body.mobile-play #mobileKnob{width:50px;height:50px}body.mobile-play #mobileActions{grid-template-columns:repeat(3,55px);gap:5px;bottom:8px}body.mobile-play #mobileActions button{width:55px;min-width:55px;min-height:43px}body.mobile-play #mobileActions button strong{font-size:15px}body.mobile-play #transformTool{bottom:70px}body.mobile-play #buildBar{bottom:120px}}
-</style><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"}}</script></head><body><div id="bootScreen" role="status" aria-live="polite"><div class="bootPanel"><div class="bootMark">✦</div><h2>AFTER THE RAIN</h2><p class="bootSub">NORTH DOCK · SECTOR 07</p><div class="bootTrack"><div id="bootFill"></div></div><div class="bootDetails"><span id="bootStatus">Preparando motor gráfico…</span><span id="bootPercent">03%</span></div><div class="bootFooter">UN MUNDO DESPUÉS DE LA LLUVIA</div></div></div><script>window.bootProgress=function(n,msg){const f=document.getElementById('bootFill'),p=document.getElementById('bootPercent'),s=document.getElementById('bootStatus');if(f)f.style.width=n+'%';if(p)p.textContent=String(n).padStart(2,'0')+'%';if(s)s.textContent=msg};window.addEventListener('error',()=>{window.bootProgress?.(0,'Error al iniciar · comprueba la conexión');document.getElementById('bootScreen')?.classList.add('done')});window.addEventListener('unhandledrejection',()=>{document.getElementById('bootScreen')?.classList.add('done')});</script><div id="hud"><div id="mobilePad" aria-label="Controles táctiles"><div id="mobileLook" aria-label="Desliza para mirar"></div><div id="mobileStick" aria-label="Joystick para caminar"><div id="mobileKnob"></div></div><div id="mobileActions"><button id="mAction" aria-label="Interactuar o confirmar"><strong>◎</strong>Usar</button><button id="mJump" aria-label="Saltar"><strong>↑</strong>Salto</button><button id="mRun" aria-label="Correr"><strong>»</strong>Correr</button><button id="mTorch" aria-label="Linterna"><strong>☼</strong>Luz</button><button id="mUp" aria-label="Subir altura"><strong>＋</strong>Altura</button><button id="mDown" aria-label="Bajar altura"><strong>−</strong>Altura</button></div><div id="mobileTip">Izquierda: caminar · Derecha: mirar · ◎: interactuar</div></div><div id="utilityNav"><button id="controlsBtn" type="button"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M8 10v5M5.5 12.5h5M16 11h.01M19 14h.01"/></svg>Controles</button><button id="settingsBtn" type="button"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M9 4v6M16 14v6"/><circle cx="9" cy="7" r="2"/><circle cx="16" cy="17" r="2"/></svg>Configuración</button></div><div id="utilityOverlay"><section id="utilityPanel" role="dialog" aria-modal="true" aria-labelledby="utilityTitle"><header><h2 id="utilityTitle"></h2><button id="utilityClose" type="button" aria-label="Cerrar">✕</button></header><div id="utilityContent"></div></section></div><div id="top">NORTH DOCK / SECTOR 07<strong>AFTER THE RAIN</strong></div><div id="cross"><i></i></div><div id="perf"></div><div id="err"></div><div id="intro"><div class="panel"><h1>AFTER THE RAIN</h1><p>INDUSTRIAL BUILDINGS / PARALLAX INTERIORS<br>WET ASPHALT / ROBOT COMPANION / SPATIAL AUDIO</p><button>ENTER THE YARD</button></div></div><div id="dogMenu"><button class="menuChoice" id="openCommands"><span>◈</span> Instrucciones</button><button class="menuChoice" id="openBuilder"><span>▦</span> Construcción</button></div><div id="dogPanel"><button class="close" id="closeDogPanel">✕</button><h3 id="panelTitle">Instrucciones</h3><p id="panelDesc">Control de la unidad cuadrúpeda.</p><div id="panelActions"></div></div><div id="buildBar"><span id="buildLabel">▧  Apunta a barriles, contenedores o cubos · rueda: altura · <strong>clic para construir</strong> · ESC cancela</span></div><div id="transformTool"><div class="toolTitle">✥ EDITAR BLOQUE <span id="transformStatus" style="font-weight:400;color:#9cb7c5"></span></div><div class="toolButtons"><button data-transform="translate" class="active">↔ Trasladar</button><button data-transform="rotate">⟳ Rotar</button><button data-transform="scale">⤢ Escalar</button></div><div class="toolHint" id="transformHint">Selecciona un eje y arrastra en la escena. Ajuste preciso con los botones.</div><div id="axisControls" style="display:flex;gap:7px;margin-top:10px"><button data-axis="x" class="active">X · ↔</button><button data-axis="y">Y · ↕</button><button data-axis="z">Z · ↗</button></div><div id="precisionControls" style="display:flex;align-items:center;gap:8px;margin-top:10px"><button id="fineMinus" title="Disminuir">−</button><span id="precisionValue" style="flex:1;text-align:center;font:12px monospace;color:#d3ecf7">X: 0.00 m</span><button id="finePlus" title="Aumentar">+</button><button id="resetTransform" title="Restablecer">↺</button></div><div style="font-size:10px;color:#9eb6c5;margin-top:7px">Arrastra para ajustar el eje · Mayús = precisión · ESC cancela</div><div class="toolFooter"><button id="cancelTransform">✕ Cancelar</button><button id="applyTransform">✓ Ordenar al perro</button></div></div><div id="placementHint">CLIC PARA CONSTRUIR · ESC PARA CANCELAR</div><div id="loading">CARGANDO ESCENA Y TEXTURAS...</div></div><script>window.addEventListener('error',e=>{const el=document.getElementById('err');el.style.display='block';el.textContent='Error: '+(e.message||'No se ha podido iniciar la escena');});window.addEventListener('unhandledrejection',e=>{const el=document.getElementById('err');el.style.display='block';el.textContent='Error: '+String(e.reason);});</script><script type="module">
+#cross{width:38px;height:38px;opacity:1!important;filter:drop-shadow(0 2px 3px #000) drop-shadow(0 0 6px #000)}#cross:before{height:34px;width:3px;background:linear-gradient(to bottom,#f8ffff 0 37%,transparent 37% 63%,#f8ffff 63%);box-shadow:0 0 0 1px #10222d,0 0 7px #d6f4ff}#cross:after{width:34px;height:3px;background:linear-gradient(to right,#f8ffff 0 37%,transparent 37% 63%,#f8ffff 63%);box-shadow:0 0 0 1px #10222d,0 0 7px #d6f4ff}#cross i{width:5px;height:5px;background:#ffc78e;box-shadow:0 0 0 2px #111e29,0 0 8px #ffc78e}#transformTool{bottom:18px;min-width:310px;padding:10px 13px}#transformTool .toolHint{margin-top:7px}#axisControls,#precisionControls{display:none!important}#transformTool .toolButtons button{padding:8px}#placementHint{top:53%;font-size:12px;white-space:normal;text-align:center;max-width:90vw}</style><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"}}</script></head><body><div id="bootScreen" role="status" aria-live="polite"><div class="bootPanel"><div class="bootMark">✦</div><h2>AFTER THE RAIN</h2><p class="bootSub">NORTH DOCK · SECTOR 07</p><div class="bootTrack"><div id="bootFill"></div></div><div class="bootDetails"><span id="bootStatus">Preparando motor gráfico…</span><span id="bootPercent">03%</span></div><div class="bootFooter">UN MUNDO DESPUÉS DE LA LLUVIA</div></div></div><script>window.bootProgress=function(n,msg){const f=document.getElementById('bootFill'),p=document.getElementById('bootPercent'),s=document.getElementById('bootStatus');if(f)f.style.width=n+'%';if(p)p.textContent=String(n).padStart(2,'0')+'%';if(s)s.textContent=msg};window.addEventListener('error',()=>{window.bootProgress?.(0,'Error al iniciar · comprueba la conexión');document.getElementById('bootScreen')?.classList.add('done')});window.addEventListener('unhandledrejection',()=>{document.getElementById('bootScreen')?.classList.add('done')});</script><div id="hud"><div id="mobilePad" aria-label="Controles táctiles"><div id="mobileLook" aria-label="Desliza para mirar"></div><div id="mobileStick" aria-label="Joystick para caminar"><div id="mobileKnob"></div></div><div id="mobileActions"><button id="mAction" aria-label="Interactuar o confirmar"><strong>◎</strong>Usar</button><button id="mJump" aria-label="Saltar"><strong>↑</strong>Salto</button><button id="mRun" aria-label="Correr"><strong>»</strong>Correr</button><button id="mTorch" aria-label="Linterna"><strong>☼</strong>Luz</button><button id="mUp" aria-label="Subir altura"><strong>＋</strong>Altura</button><button id="mDown" aria-label="Bajar altura"><strong>−</strong>Altura</button></div><div id="mobileTip">Izquierda: caminar · Derecha: mirar · ◎: interactuar</div></div><div id="utilityNav"><button id="controlsBtn" type="button"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M8 10v5M5.5 12.5h5M16 11h.01M19 14h.01"/></svg>Controles</button><button id="settingsBtn" type="button"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M9 4v6M16 14v6"/><circle cx="9" cy="7" r="2"/><circle cx="16" cy="17" r="2"/></svg>Configuración</button></div><div id="utilityOverlay"><section id="utilityPanel" role="dialog" aria-modal="true" aria-labelledby="utilityTitle"><header><h2 id="utilityTitle"></h2><button id="utilityClose" type="button" aria-label="Cerrar">✕</button></header><div id="utilityContent"></div></section></div><div id="top">NORTH DOCK / SECTOR 07<strong>AFTER THE RAIN</strong></div><div id="cross"><i></i></div><div id="perf"></div><div id="err"></div><div id="intro"><div class="panel"><h1>AFTER THE RAIN</h1><p>INDUSTRIAL BUILDINGS / PARALLAX INTERIORS<br>WET ASPHALT / ROBOT COMPANION / SPATIAL AUDIO</p><button>ENTER THE YARD</button></div></div><div id="dogMenu"><button class="menuChoice" id="openCommands"><span>◈</span> Instrucciones</button><button class="menuChoice" id="openBuilder"><span>▦</span> Construcción</button></div><div id="dogPanel"><button class="close" id="closeDogPanel">✕</button><h3 id="panelTitle">Instrucciones</h3><p id="panelDesc">Control de la unidad cuadrúpeda.</p><div id="panelActions"></div></div><div id="buildBar"><span id="buildLabel">▧  Apunta a barriles, contenedores o cubos · rueda: altura · <strong>clic para construir</strong> · ESC cancela</span></div><div id="transformTool"><div class="toolTitle">✥ EDITAR BLOQUE <span id="transformStatus" style="font-weight:400;color:#9cb7c5"></span></div><div class="toolButtons"><button data-transform="translate" class="active">✥ Mover libre</button><button data-transform="rotate">⟳ Girar</button><button data-transform="scale">⤢ Tamaño</button></div><div class="toolHint" id="transformHint">Mueve el ratón para previsualizar · clic en la escena para aplicar</div><div id="axisControls" style="display:flex;gap:7px;margin-top:10px"><button data-axis="x" class="active">X · ↔</button><button data-axis="y">Y · ↕</button><button data-axis="z">Z · ↗</button></div><div id="precisionControls" style="display:flex;align-items:center;gap:8px;margin-top:10px"><button id="fineMinus" title="Disminuir">−</button><span id="precisionValue" style="flex:1;text-align:center;font:12px monospace;color:#d3ecf7">X: 0.00 m</span><button id="finePlus" title="Aumentar">+</button><button id="resetTransform" title="Restablecer">↺</button></div><div style="font-size:10px;color:#9eb6c5;margin-top:7px">Ratón: ajustar · clic: aplicar · ESC: cancelar</div><div class="toolFooter"><button id="cancelTransform">✕ Cancelar</button><button id="applyTransform">✓ Ordenar al perro</button></div></div><div id="placementHint">CLIC PARA CONSTRUIR · ESC PARA CANCELAR</div><div id="loading">CARGANDO ESCENA Y TEXTURAS...</div></div><script>window.addEventListener('error',e=>{const el=document.getElementById('err');el.style.display='block';el.textContent='Error: '+(e.message||'No se ha podido iniciar la escena');});window.addEventListener('unhandledrejection',e=>{const el=document.getElementById('err');el.style.display='block';el.textContent='Error: '+String(e.reason);});</script><script type="module">
 import * as THREE from 'three';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -150,7 +150,23 @@ window.bootProgress?.(58,"Construyendo el puerto industrial…");
 const collisionBoxes=[];
 const palettes=['#69777c','#445e6b','#815b48','#58655c','#74736d','#354d58','#77715e'];const containerMats=palettes.map(p=>new THREE.MeshStandardMaterial({map:metalTexture(p),metalness:.68,roughness:.36,normalMap:texCanvas(256,asphaltNormal),normalScale:new THREE.Vector2(.22,.22)}));const darkMetal=new THREE.MeshStandardMaterial({color:0x222d31,metalness:.72,roughness:.42});const rust=new THREE.MeshStandardMaterial({color:0x604131,metalness:.45,roughness:.75});const boltGeo=new THREE.CylinderGeometry(.07,.07,.035,6);
 function box(w,h,d,mat,x,y,z,cast=true){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);o.position.set(x,y,z);o.castShadow=cast;o.receiveShadow=true;scene.add(o);return o}
-function container(x,z,angle=0,color=0,stack=0){const g=new THREE.Group();g.position.set(x,stack*2.7+.11,z);g.rotation.y=angle;scene.add(g);const mat=containerMats[color%containerMats.length];const body=new THREE.Mesh(new THREE.BoxGeometry(12,2.55,2.85),mat);body.position.y=1.275;body.castShadow=true;body.receiveShadow=true;g.add(body);const ribGeo=new THREE.BoxGeometry(.052,2.28,.065);for(let side of [-1,1])for(let j=0;j<31;j++){const rib=new THREE.Mesh(ribGeo,darkMetal);rib.position.set(-5.65+j*.376,1.29,side*1.438);rib.castShadow=j%3===0;g.add(rib)}for(let side of [-1,1]){const edge=new THREE.Mesh(new THREE.BoxGeometry(12.04,.085,.11),darkMetal);edge.position.set(0,2.49,side*1.44);g.add(edge);const edge2=edge.clone();edge2.position.y=.1;g.add(edge2)}for(let sx of [-1,1])for(let sz of [-1,1]){const post=new THREE.Mesh(new THREE.BoxGeometry(.19,2.62,.2),darkMetal);post.position.set(sx*5.91,1.29,sz*1.41);g.add(post);for(let y of [.15,2.48]){const b=new THREE.Mesh(boltGeo,rust);b.rotation.x=Math.PI/2;b.position.set(sx*5.91,y,sz*1.53);g.add(b)}}for(let j=0;j<2;j++){const door=new THREE.Mesh(new THREE.BoxGeometry(.035,2.23,1.28),mat);door.position.set(6.02,1.29,(j-.5)*1.32);g.add(door);const bar=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,2.12,8),darkMetal);bar.position.set(6.09,1.29,(j-.5)*1.32+.25);g.add(bar)}return g}
+// Static batching: reduce draw calls without removing architectural geometry.
+function batchStaticGroup(group){
+ const groups=new Map();
+ for(const child of [...group.children]){
+  if(!child.isMesh||!child.geometry||Array.isArray(child.material))continue;
+  const key=child.material.uuid+':'+(child.castShadow?'1':'0')+':'+(child.receiveShadow?'1':'0');
+  if(!groups.has(key))groups.set(key,{material:child.material,castShadow:child.castShadow,receiveShadow:child.receiveShadow,geos:[]});
+  child.updateMatrix();
+  const geo=child.geometry.clone();geo.applyMatrix4(child.matrix);
+  groups.get(key).geos.push(geo);group.remove(child);
+ }
+ for(const b of groups.values()){
+  const merged=mergeGeometries(b.geos,false);b.geos.forEach(g=>g.dispose());
+  if(merged){const mesh=new THREE.Mesh(merged,b.material);mesh.castShadow=b.castShadow;mesh.receiveShadow=b.receiveShadow;group.add(mesh);}
+ }
+}
+function container(x,z,angle=0,color=0,stack=0){const g=new THREE.Group();g.position.set(x,stack*2.7+.11,z);g.rotation.y=angle;scene.add(g);const mat=containerMats[color%containerMats.length];const body=new THREE.Mesh(new THREE.BoxGeometry(12,2.55,2.85),mat);body.position.y=1.275;body.castShadow=true;body.receiveShadow=true;g.add(body);const ribGeo=new THREE.BoxGeometry(.052,2.28,.065);for(let side of [-1,1])for(let j=0;j<31;j++){const rib=new THREE.Mesh(ribGeo,darkMetal);rib.position.set(-5.65+j*.376,1.29,side*1.438);rib.castShadow=j%3===0;g.add(rib)}for(let side of [-1,1]){const edge=new THREE.Mesh(new THREE.BoxGeometry(12.04,.085,.11),darkMetal);edge.position.set(0,2.49,side*1.44);g.add(edge);const edge2=edge.clone();edge2.position.y=.1;g.add(edge2)}for(let sx of [-1,1])for(let sz of [-1,1]){const post=new THREE.Mesh(new THREE.BoxGeometry(.19,2.62,.2),darkMetal);post.position.set(sx*5.91,1.29,sz*1.41);g.add(post);for(let y of [.15,2.48]){const b=new THREE.Mesh(boltGeo,rust);b.rotation.x=Math.PI/2;b.position.set(sx*5.91,y,sz*1.53);g.add(b)}}for(let j=0;j<2;j++){const door=new THREE.Mesh(new THREE.BoxGeometry(.035,2.23,1.28),mat);door.position.set(6.02,1.29,(j-.5)*1.32);g.add(door);const bar=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,2.12,8),darkMetal);bar.position.set(6.09,1.29,(j-.5)*1.32+.25);g.add(bar)}batchStaticGroup(g);return g}
 // Grounded stacks: every upper container has a real lower support.
 function placeContainer(x,z,angle,color,levels=1){for(let level=0;level<levels;level++)container(x,z,angle,(color+level)%7,level);const horizontal=Math.abs(Math.cos(angle))>.7;collisionBoxes.push({x,z,h:levels*2.7,w:horizontal?12.2:3.05,d:horizontal?3.05:12.2});}
 for(let i=0;i<8;i++){placeContainer(-16,16-i*13,Math.PI/2,i%7,i%3===0?2:1);placeContainer(16,16-i*13,Math.PI/2,(i+3)%7,i%4===0?2:1)}
@@ -161,7 +177,7 @@ for(let i=0;i<15;i++){const x=rr(-80,80),z=rr(-150,50);if(Math.abs(x)<25)continu
 const puddleMat={uniforms:{uTime:{value:0}}};
 // Road markings, drains, debris, cables and props.
 const lineMat=new THREE.MeshStandardMaterial({color:0xa99c7e,roughness:.85,metalness:.02});for(let x of [-9,9])for(let z=-108;z<40;z+=7){const dash=box(.12,.009,3.4,lineMat,x,.031,z,false);dash.rotation.y=rr(-.02,.02)}const grateMat=new THREE.MeshStandardMaterial({color:0x1c272a,roughness:.55,metalness:.6});for(let z=-105;z<40;z+=23){box(1.6,.025,.65,grateMat,-7.2,.04,z,false);for(let k=0;k<8;k++)box(.05,.035,.62,darkMetal,-7.9+k*.2,.07,z,false)}
-function barrel(x,z){const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);const m=new THREE.MeshStandardMaterial({color:random()>.5?0x8a573d:0x4d6572,metalness:.64,roughness:.39});const b=new THREE.Mesh(new THREE.CylinderGeometry(.43,.43,1.12,20),m);b.position.y=.56;b.castShadow=true;g.add(b);for(let y of [.14,.55,.98]){const ring=new THREE.Mesh(new THREE.TorusGeometry(.43,.034,6,24),darkMetal);ring.rotation.x=Math.PI/2;ring.position.y=y;g.add(ring)}collisionBoxes.push({x,z,w:.96,d:.96,h:1.14})}for(let i=0;i<35;i++){let x=rr(-23,23),z=rr(-110,43);if(Math.abs(x)<4&&z>0)continue;barrel(x,z)}
+function barrel(x,z){const g=new THREE.Group();g.position.set(x,0,z);scene.add(g);const m=new THREE.MeshStandardMaterial({color:random()>.5?0x8a573d:0x4d6572,metalness:.64,roughness:.39});const b=new THREE.Mesh(new THREE.CylinderGeometry(.43,.43,1.12,20),m);b.position.y=.56;b.castShadow=true;g.add(b);for(let y of [.14,.55,.98]){const ring=new THREE.Mesh(new THREE.TorusGeometry(.43,.034,6,24),darkMetal);ring.rotation.x=Math.PI/2;ring.position.y=y;g.add(ring)}batchStaticGroup(g);collisionBoxes.push({x,z,w:.96,d:.96,h:1.14})}for(let i=0;i<35;i++){let x=rr(-23,23),z=rr(-110,43);if(Math.abs(x)<4&&z>0)continue;barrel(x,z)}
 // Street lamps: practical warm illumination with focused pools and a subtle optical glow.
 const lampMat=new THREE.MeshStandardMaterial({color:0xffe0b5,emissive:0xffbb72,emissiveIntensity:5.5,roughness:.25});
 const lampGlowCanvas=document.createElement('canvas');lampGlowCanvas.width=lampGlowCanvas.height=128;
@@ -171,19 +187,50 @@ lg.fillStyle=grad;lg.fillRect(0,0,128,128);
 const lampGlowTex=new THREE.CanvasTexture(lampGlowCanvas);
 const lampGlowMat=new THREE.SpriteMaterial({map:lampGlowTex,color:0xffe2b2,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:.7});
 const lampPoolMat=new THREE.MeshBasicMaterial({color:0xffb56b,transparent:true,opacity:.09,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide});
+const streetLampLights=[],streetLampGlows=[],streetLampPools=[],lampSites=[];
+const MAX_ACTIVE_LAMP_LIGHTS=3;
+let lastLampSelection=-10;
+function updateLampLighting(force=false){
+ if(!streetLightsEnabled)return;
+ if(!force&&elapsed-lastLampSelection<.65)return;
+ lastLampSelection=elapsed;
+ // Only the nearest three real lights affect the scene. All lamp fixtures,
+ // emissive bulbs, glows and ground pools remain visible at full quality.
+ const nearest=lampSites.map((site,index)=>({index,d:(site.x-camera.position.x)**2+(site.z-camera.position.z)**2}))
+   .sort((a,b)=>a.d-b.d);
+ const selected=new Set(nearest.slice(0,MAX_ACTIVE_LAMP_LIGHTS).map(o=>o.index));
+ for(let i=0;i<lampSites.length;i++){
+  const site=lampSites[i];
+  site.light.visible=selected.has(i)&&streetLightsEnabled;
+ }
+}
 for(let z=-100;z<42;z+=28){for(const x of [-24,24]){
  const headX=x+(x<0?1.6:-1.6);
  box(.22,9,.22,darkMetal,x,4.5,z);box(2,.16,.16,darkMetal,x+(x<0?1:-1),8.9,z);
  box(.9,.1,.55,lampMat,headX,8.75,z);
  const light=new THREE.SpotLight(0xffc486,135,29,Math.PI/3.3,.75,1.45);
  light.position.set(headX,8.65,z);light.target.position.set(headX+(x<0?1.8:-1.8),.05,z);
- scene.add(light,light.target);
- // A smaller point light brightens the pole, nearby props and undersides.
- const fill=new THREE.PointLight(0xffd5a1,12,10,2);fill.position.set(headX,8.48,z);scene.add(fill);
- const glow=new THREE.Sprite(lampGlowMat);glow.position.set(headX,8.66,z);glow.scale.set(3.6,3.6,1);scene.add(glow);
+ light.castShadow=false;
+ scene.add(light,light.target);streetLampLights.push(light);
+ lampSites.push({x:headX,z,light});
+ // The former point fill light was removed: it doubled per-pixel lighting
+ // work for every streetlamp. Emissive fixtures and light pools retain its look.
+ const glow=new THREE.Sprite(lampGlowMat);glow.position.set(headX,8.66,z);glow.scale.set(3.6,3.6,1);scene.add(glow);streetLampGlows.push(glow);
  const pool=new THREE.Mesh(new THREE.CircleGeometry(5.7,40),lampPoolMat);
- pool.rotation.x=-Math.PI/2;pool.position.set(headX+(x<0?1.8:-1.8),.055,z);scene.add(pool);
+ pool.rotation.x=-Math.PI/2;pool.position.set(headX+(x<0?1.8:-1.8),.055,z);scene.add(pool);streetLampPools.push(pool);
 }}
+// Independent optional visual effects; stored across sessions.
+function getVisualPref(key){try{return localStorage.getItem('atr_visual_'+key)!=='false'}catch(e){return true}}
+function setVisualPref(key,on){try{localStorage.setItem('atr_visual_'+key,String(on))}catch(e){}}
+let rainEnabled=getVisualPref('rain'),streetLightsEnabled=getVisualPref('lamps'),atmosphereEnabled=getVisualPref('atmosphere');
+function applyStreetLights(){
+ if(streetLightsEnabled){lastLampSelection=-10;for(const l of streetLampLights)l.visible=false;}
+ else for(const l of streetLampLights)l.visible=false;
+ for(const g of streetLampGlows)g.visible=streetLightsEnabled;
+ for(const p of streetLampPools)p.visible=streetLightsEnabled;
+ lampMat.emissiveIntensity=streetLightsEnabled?5.5:0;
+}
+applyStreetLights();
 // Articulated quadruped: modeled locally, never depends on CORS or remote GLB.
 const robot=new THREE.Group();robot.position.set(-3.8,0,7.2);robot.rotation.y=-.36;scene.add(robot);
 const robotShell=new THREE.MeshPhysicalMaterial({color:0xc8d2d6,metalness:.78,roughness:.26,clearcoat:.65,clearcoatRoughness:.19});
@@ -367,7 +414,7 @@ function industrialBuilding(x,z,w,d,h,angle=0){
  const sideways=Math.abs(Math.sin(angle))>.7;collisionBoxes.push({x,z,w:(sideways?d:w)+.5,d:(sideways?w:d)+.5,h});
 }
 industrialBuilding(-44,-35,26,19,18);industrialBuilding(45,-75,31,23,24);industrialBuilding(-48,-108,39,21,20);
-// Optimized enclosed perimeter: one detailed building for every two inexpensive wall sections.
+// Optimized enclosed perimeter: one detailed building for every five inexpensive wall sections.
 // All sections remain solid for player, dog navigation, block placement and Rapier.
 const perimeterStyles=[
  {h:13,d:13},{h:20,d:16},{h:16,d:14},{h:25,d:17},
@@ -375,30 +422,47 @@ const perimeterStyles=[
 ];
 const wallFaceMat=new THREE.MeshStandardMaterial({color:0x626b68,map:concreteMap,roughness:.92,metalness:.06});
 const wallCapMat=trimMat;
+const perimeterWallParts=[];
 function perimeterWall(x,z,w,d,h){
  const wall=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),wallFaceMat);
- wall.position.set(x,h/2,z);wall.castShadow=false;wall.receiveShadow=true;scene.add(wall);
+ wall.position.set(x,h/2,z);wall.castShadow=false;wall.receiveShadow=true;perimeterWallParts.push(wall);
  const cap=new THREE.Mesh(new THREE.BoxGeometry(w+.25,.22,d+.25),wallCapMat);
- cap.position.set(x,h+.1,z);scene.add(cap);
+ cap.position.set(x,h+.1,z);perimeterWallParts.push(cap);
  collisionBoxes.push({x,z,w:w+.12,d:d+.12,h});
 }
-// One building followed by two walls: fewer interior-mapped shaders and draw calls, full enclosure.
+// One building followed by five walls: much fewer interior shaders, full enclosure.
 // Sunset side (west) remains lower than the rest.
 for(let z=-204,i=0;z<=62;z+=26,i++){
  const west=perimeterStyles[i%perimeterStyles.length];
- if(i%3===0)industrialBuilding(-116,z,28,west.d,8+(i%3)*2,Math.PI/2);
+ if(i%6===0)industrialBuilding(-116,z,28,west.d,8+(i%3)*2,Math.PI/2);
  else perimeterWall(-116,z,west.d,26.35,6);
  const east=perimeterStyles[(i+3)%perimeterStyles.length];
- if(i%3===0)industrialBuilding(116,z,28,east.d,east.h,-Math.PI/2);
+ if(i%6===0)industrialBuilding(116,z,28,east.d,east.h,-Math.PI/2);
  else perimeterWall(116,z,east.d,26.35,10);
 }
 for(let x=-104,i=0;x<=104;x+=26,i++){
  const north=perimeterStyles[(i+2)%perimeterStyles.length];
- if(i%3===0)industrialBuilding(x,68,28,north.d,north.h,Math.PI);
+ if(i%6===0)industrialBuilding(x,68,28,north.d,north.h,Math.PI);
  else perimeterWall(x,68,26.35,north.d,10);
  const south=perimeterStyles[(i+5)%perimeterStyles.length];
- if(i%3===0)industrialBuilding(x,-211,28,south.d,12+(i%4)*3,0);
+ if(i%6===0)industrialBuilding(x,-211,28,south.d,12+(i%4)*3,0);
  else perimeterWall(x,-211,26.35,south.d,10);
+}
+// All perimeter walls share two materials: merge into two world-space meshes.
+// Collision boxes remain independent so physics and navigation stay unchanged.
+for(const material of [wallFaceMat,wallCapMat]){
+ const geometries=[];
+ for(const part of perimeterWallParts){
+  if(part.material!==material)continue;
+  part.updateMatrix();
+  const geometry=part.geometry.clone();geometry.applyMatrix4(part.matrix);geometries.push(geometry);
+  part.geometry.dispose();
+ }
+ if(geometries.length){
+  const combined=mergeGeometries(geometries,false);
+  geometries.forEach(g=>g.dispose());
+  if(combined){const mesh=new THREE.Mesh(combined,material);mesh.castShadow=false;mesh.receiveShadow=true;scene.add(mesh);}
+ }
 }
 const buildingMat=new THREE.MeshStandardMaterial({color:0x39464b,roughness:.92});for(let i=0;i<32;i++){const x=rr(-170,170),z=rr(-250,-145);box(rr(6,24),rr(9,39),rr(6,22),buildingMat,x,rr(5,14),z,false)}
 // Volumetric-looking drifting mist as layered translucent planes.
@@ -432,6 +496,7 @@ let torchEnabled=true;
 const N=1100,arr=new Float32Array(N*6),speeds=new Float32Array(N);const rainGeo=new THREE.BufferGeometry();
 for(let i=0;i<N;i++){let x=rr(-34,34),y=rr(1,27),z=rr(-40,30);speeds[i]=rr(12,22);arr.set([x,y,z,x-.065,y-rr(.35,.85),z+.04],i*6)}
 rainGeo.setAttribute('position',new THREE.BufferAttribute(arr,3));const rain=new THREE.LineSegments(rainGeo,new THREE.LineBasicMaterial({color:0xb2c5d3,transparent:true,opacity:.14,depthWrite:false,blending:THREE.NormalBlending}));rain.frustumCulled=false;scene.add(rain);
+rain.visible=rainEnabled;
 // Ground impacts: a shared event pool drives both the ground's normal shader
 // and the tiny water crowns. No disconnected decorative rings.
 const IMPACT_COUNT=32, impactEvents=Array.from({length:IMPACT_COUNT},()=>({x:9999,z:9999,time:-100,wet:0}));
@@ -472,7 +537,7 @@ function addImpact(x,z,now){const ix=impactCursor++%IMPACT_COUNT;
 // Procedural Web Audio: no network samples, sound starts only after a user gesture.
 let audioCtx=null, rainSource=null, rainFilter=null, rainGain=null, rainLowGain=null, audioMaster=null;
 let rainVolume=.35;
-function applyRainVolume(){if(!audioCtx)return;const t=audioCtx.currentTime;if(rainGain)rainGain.gain.setTargetAtTime(.027*rainVolume,t,.05);if(rainLowGain)rainLowGain.gain.setTargetAtTime(.014*rainVolume,t,.05);}
+function applyRainVolume(){if(!audioCtx)return;const t=audioCtx.currentTime;if(rainGain)rainGain.gain.setTargetAtTime(.027*(rainEnabled?rainVolume:0),t,.05);if(rainLowGain)rainLowGain.gain.setTargetAtTime(.014*(rainEnabled?rainVolume:0),t,.05);}
 let stepTravel=0, dogLastPhase=0, dogSoundSpeed=0, dogSoundDistance=0;
 function audioNoiseBuffer(duration=1){
  const buffer=audioCtx.createBuffer(1,Math.ceil(audioCtx.sampleRate*duration),audioCtx.sampleRate);
@@ -486,11 +551,11 @@ function startAudio(){
  // Broad diffuse rain bed, layered with a distant low-frequency rain wash.
  const noise=audioNoiseBuffer(3);rainSource=audioCtx.createBufferSource();rainSource.buffer=noise;rainSource.loop=true;
  rainFilter=audioCtx.createBiquadFilter();rainFilter.type='lowpass';rainFilter.frequency.value=3100;
- rainGain=audioCtx.createGain();rainGain.gain.value=.027*rainVolume;
+ rainGain=audioCtx.createGain();rainGain.gain.value=.027*(rainEnabled?rainVolume:0);
  rainSource.connect(rainFilter).connect(rainGain).connect(audioMaster);rainSource.start();
  const low=audioCtx.createBufferSource();low.buffer=noise;low.loop=true;
  const lowpass=audioCtx.createBiquadFilter();lowpass.type='lowpass';lowpass.frequency.value=430;
- const lowgain=audioCtx.createGain();lowgain.gain.value=.014*rainVolume;rainLowGain=lowgain;
+ const lowgain=audioCtx.createGain();lowgain.gain.value=.014*(rainEnabled?rainVolume:0);rainLowGain=lowgain;
  low.connect(lowpass).connect(lowgain).connect(audioMaster);low.start();
  }catch(e){console.warn('Audio initialization:',e)}
 }
@@ -642,11 +707,40 @@ const graphicsPresets={
  minimum:{pixel:.5,shadow:0,torch:0,bloom:false}
 };
 let graphicsQuality='high';
+let adaptiveGraphics=true,adaptivePixel=1.25,adaptiveFrames=0,adaptiveTime=0,adaptiveCooldown=0;
+try{const v=localStorage.getItem('atr_adaptive_resolution');if(v!==null)adaptiveGraphics=v==='true';}catch(e){}
+function applyAdaptiveResolution(enabled){
+ adaptiveGraphics=!!enabled;
+ try{localStorage.setItem('atr_adaptive_resolution',String(adaptiveGraphics))}catch(e){}
+ adaptiveFrames=0;adaptiveTime=0;adaptiveCooldown=0;
+ applyGraphicsQuality(graphicsQuality);
+}
+function autoTuneResolution(dt){
+ if(!adaptiveGraphics||!started||graphicsQuality==='minimum'||graphicsQuality==='low')return;
+ adaptiveFrames++;adaptiveTime+=dt;adaptiveCooldown+=dt;
+ if(adaptiveTime<2.8||adaptiveCooldown<4)return;
+ const fps=adaptiveFrames/adaptiveTime;
+ adaptiveFrames=0;adaptiveTime=0;
+ const q=graphicsPresets[graphicsQuality];
+ const ceiling=Math.min(devicePixelRatio,q.pixel);
+ const floor=graphicsQuality==='ultra'?.85:.78;
+ let next=adaptivePixel;
+ if(fps<37)next=Math.max(floor,adaptivePixel-.12);
+ else if(fps>51)next=Math.min(ceiling,adaptivePixel+.07);
+ if(Math.abs(next-adaptivePixel)>.005){
+  adaptivePixel=next;
+  renderer.setPixelRatio(next);
+  renderer.setSize(innerWidth,innerHeight);
+  composer.setSize(innerWidth,innerHeight);
+  adaptiveCooldown=0;
+ }
+}
 try{const stored=localStorage.getItem('atr_graphics_quality');if(graphicsPresets[stored])graphicsQuality=stored;}catch(e){}
 function applyGraphicsQuality(name){
  const q=graphicsPresets[name]||graphicsPresets.medium;
  graphicsQuality=name;
- renderer.setPixelRatio(Math.min(devicePixelRatio,q.pixel));
+ adaptivePixel=Math.min(devicePixelRatio,q.pixel);
+ renderer.setPixelRatio(adaptivePixel);
  renderer.setSize(innerWidth,innerHeight);
  composer.setSize(innerWidth,innerHeight);
  bloomPass.enabled=q.bloom;
@@ -663,6 +757,15 @@ applyGraphicsQuality(graphicsQuality);
 // Non-intrusive help/settings overlay; pauses pointer lock while open.
 const isMobileGame=(navigator.maxTouchPoints>0&&matchMedia('(pointer:coarse)').matches)||/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 if(isMobileGame)document.body.classList.add('mobile-play');
+const originalFog=scene.fog;
+function applyWeatherOptions(){
+ rain.visible=rainEnabled;
+ applyStreetLights();
+ scene.fog=atmosphereEnabled?originalFog:null;
+ for(const m of mists)m.visible=atmosphereEnabled;
+ if(!rainEnabled){for(const e of impactEvents){e.time=-100;e.wet=0;}for(let i=0;i<IMPACT_COUNT;i++)crownAttr.set([9999,9999,-100,0],i*4);crowns.geometry.getAttribute('aImpact').needsUpdate=true;}
+}
+applyWeatherOptions();
 const utilityOverlay=document.getElementById('utilityOverlay');
 const utilityTitle=document.getElementById('utilityTitle');
 const utilityContent=document.getElementById('utilityContent');
@@ -686,11 +789,21 @@ function openUtility(which){
   utilityTitle.textContent='Configuración';
   utilityContent.innerHTML=`<p>Reduce la carga gráfica para ganar fluidez. Los cambios se aplican al instante.</p>
   <div class="controlRow"><label for="graphicsSelect">Calidad gráfica</label><select id="graphicsSelect"><option value="ultra">Ultra</option><option value="high">Alta</option><option value="medium">Media</option><option value="low">Baja</option><option value="minimum">Mínima</option></select></div>
+  <div class="controlRow"><label for="adaptiveResolution">Resolución dinámica (objetivo 40 FPS)</label><input type="checkbox" id="adaptiveResolution" ${adaptiveGraphics?'checked':''} style="width:20px;height:20px;accent-color:#e5b37f"></div>
+  <p class="settingNote">Ajusta suavemente la resolución interna cuando caen los FPS. Mantiene materiales, edificios, luces y sombras. Desactívalo si prefieres resolución fija.</p>
   <div class="controlRow"><label for="interiorSelect">Habitaciones en ventanas</label><select id="interiorSelect"><option value="full">Siempre (máxima calidad)</option><option value="far">Hasta 125 m</option><option value="balanced">Hasta 70 m</option><option value="near">Hasta 38 m</option><option value="off">Desactivadas</option></select></div>
   <p class="settingNote">Los edificios mantienen su geometría, cristales y colisiones. Solo se simplifican las habitaciones lejanas, sin perder detalle de cerca. Las fachadas están agrupadas para dibujarse más rápido.</p>
   <p class="settingNote">Media: resolución nativa hasta 1×, sombras reducidas y sin bloom. Baja y Mínima reducen más la resolución interna. Mínima desactiva las sombras.</p>
+  <div class="controlRow"><label for="rainEnabled">Lluvia (partículas y salpicaduras)</label><input type="checkbox" id="rainEnabled" ${rainEnabled?'checked':''} style="width:20px;height:20px;accent-color:#e5b37f"></div>
+  <div class="controlRow"><label for="streetLightsEnabled">Iluminación de farolas</label><input type="checkbox" id="streetLightsEnabled" ${streetLightsEnabled?'checked':''} style="width:20px;height:20px;accent-color:#e5b37f"></div>
+  <div class="controlRow"><label for="atmosphereEnabled">Ambiente (niebla y bruma)</label><input type="checkbox" id="atmosphereEnabled" ${atmosphereEnabled?'checked':''} style="width:20px;height:20px;accent-color:#e5b37f"></div>
+  <p class="settingNote">Los tres ajustes son independientes, se aplican al instante y se guardan. Desactivar la lluvia también silencia su sonido; el volumen se conserva para cuando la actives.</p>
   <div class="rangeHead"><label for="rainSlider">Volumen de lluvia</label><output id="rainValue">${Math.round(rainVolume*100)}%</output></div>
   <input id="rainSlider" type="range" min="0" max="100" step="1" value="${Math.round(rainVolume*100)}" aria-label="Volumen de lluvia"/>`;
+  document.getElementById('rainEnabled').addEventListener('change',e=>{rainEnabled=e.target.checked;setVisualPref('rain',rainEnabled);applyWeatherOptions();applyRainVolume();});
+  document.getElementById('streetLightsEnabled').addEventListener('change',e=>{streetLightsEnabled=e.target.checked;setVisualPref('lamps',streetLightsEnabled);applyWeatherOptions();});
+  document.getElementById('atmosphereEnabled').addEventListener('change',e=>{atmosphereEnabled=e.target.checked;setVisualPref('atmosphere',atmosphereEnabled);applyWeatherOptions();});
+  document.getElementById('adaptiveResolution').addEventListener('change',e=>applyAdaptiveResolution(e.target.checked));
   document.getElementById('interiorSelect').value=interiorQuality;
   document.getElementById('interiorSelect').addEventListener('change',e=>applyInteriorQuality(e.target.value));
   document.getElementById('graphicsSelect').value=graphicsQuality;
@@ -709,7 +822,7 @@ let yaw=0,pitch=0,locked=false,elapsed=0,frames=0,fpstime=0;const keys={};const 
 intro.addEventListener('click',()=>{startAudio();started=true;intro.style.display='none';if(!isMobileGame)renderer.domElement.requestPointerLock?.().catch(()=>{});});
 renderer.domElement.addEventListener('click',()=>{startAudio();if(!isMobileGame&&started&&!locked&&utilityOverlay.style.display!=='grid'&&!buildMode&&!destroyMode&&dogMenu.style.display!=='block'&&dogPanel.style.display!=='block')renderer.domElement.requestPointerLock?.().catch(()=>{});});
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===renderer.domElement;document.getElementById('cross').classList.toggle('aiming',locked);if(locked){started=true;intro.style.display='none'}});
-document.addEventListener('mousemove',e=>{if(!started||(!locked&&e.buttons!==1))return;yaw-=e.movementX*.0021;pitch=clamp(pitch-e.movementY*.0021,-1.35,1.35)});
+document.addEventListener('mousemove',e=>{if(!started||moveMode||(!locked&&e.buttons!==1))return;yaw-=e.movementX*.0021;pitch=clamp(pitch-e.movementY*.0021,-1.35,1.35)});
 document.addEventListener('keydown',e=>{if(e.code==='KeyF'&&!e.repeat){torchEnabled=!torchEnabled;torchLight.visible=torchEnabled;}keys[e.code]=true;if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});document.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 const eyeHeight=1.78,playerRadius=.43;let feet=0,verticalSpeed=0,onGround=true;const gravity=22,jumpVelocity=8.5;
 function obstructed(x,z,footY){if(Math.abs(x)>122||z>72||z< -215)return true;for(const b of collisionBoxes){if(footY<b.h-.08&&x>b.x-b.w/2-playerRadius&&x<b.x+b.w/2+playerRadius&&z>b.z-b.d/2-playerRadius&&z<b.z+b.d/2+playerRadius)return true}return false}
@@ -875,7 +988,7 @@ const DOG_WORK_REACH=4.2; // Distance in horizontal metres: work remotely when w
 function dogWorkDistance(task){return Math.hypot(robot.position.x-task.position.x,robot.position.z-task.position.z);}
 function assignDogWork(task,command,status){buildTask=task;dogCommand=command;dogFollowing=dogWorkDistance(task)>DOG_WORK_REACH;if(dogFollowing)dogSignal('depart');dogStatus.textContent=status;}
 
-function startBuilding(){stopMoving();stopDestroying();hideDogUI();placementHint.textContent='APUNTA A SUPERFICIES · RUEDA: ALTURA · CLIC: CONSTRUIR · ESC: SALIR';buildMode=true;buildLift=0;buildPending=false;buildPoint=null;buildBar.style.display='flex';placementHint.style.display='block';if(document.pointerLockElement===renderer.domElement)document.exitPointerLock();if(!placementPreview){placementPreview=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.2,1.2,1.2)),new THREE.LineBasicMaterial({color:0x9eefff,transparent:true,opacity:.95,depthTest:false}));scene.add(placementPreview)}placementPreview.visible=true;}
+function startBuilding(){stopMoving();stopDestroying();hideDogUI();placementHint.textContent='APUNTA A UN CUBO PARA APILAR · RUEDA: ALTURA · MAYÚS+CLIC EN LATERAL: ADOSAR · CLIC: CONSTRUIR';buildMode=true;buildLift=0;buildPending=false;buildPoint=null;buildBar.style.display='flex';placementHint.style.display='block';if(document.pointerLockElement===renderer.domElement)document.exitPointerLock();if(!placementPreview){placementPreview=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.2,1.2,1.2)),new THREE.LineBasicMaterial({color:0x9eefff,transparent:true,opacity:.95,depthTest:false}));scene.add(placementPreview)}placementPreview.visible=true;}
 function stopBuilding(){buildMode=false;buildBar.style.display='none';if(!destroyMode)placementHint.style.display='none';if(placementPreview)placementPreview.visible=false;}
 // Destruction mode: aim at a real block, select with one click, ESC cancels.
 function startDestroying(){stopMoving();stopBuilding();hideDogUI();destroyMode=true;destroyTarget=null;placementHint.textContent='APUNTA A UN CUBO · CLIC PARA DESTRUIR · ESC PARA SALIR';placementHint.style.display='block';if(document.pointerLockElement===renderer.domElement)document.exitPointerLock();if(!destroyPreview){destroyPreview=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.24,1.24,1.24)),new THREE.LineBasicMaterial({color:0xffc38c,transparent:true,opacity:1,depthTest:false}));scene.add(destroyPreview)}destroyPreview.visible=false;}
@@ -886,24 +999,70 @@ function confirmDestruction(){if(!destroyTarget)return;const target=destroyTarge
 // Interactive transform editor: pick, drag/rotate/scale a translucent block, then dispatch robot.
 const transformTool=$('#transformTool'), transformStatus=$('#transformStatus'), transformHint=$('#transformHint');
 let moveAxis='x', moveStartTransform=null, moveStartPointer=0, moveStartValue=0;
+// Mouse-only transform: cursor drives a target, frame interpolation keeps the ghost smooth.
+const editGoalPosition=new THREE.Vector3(),editGoalScale=new THREE.Vector3(),editGoalRotation=new THREE.Euler();
+let editAnchorX=0,editAnchorY=0,editAnchorRotation=0,editAnchorScale=1,editLastPointerX=0,editLastPointerY=0;
+function resetEditAnchor(x=editLastPointerX,y=editLastPointerY){
+ editAnchorX=x;editAnchorY=y;
+ if(movePreview){editAnchorRotation=editGoalRotation.y;editAnchorScale=editGoalScale.x;}
+}
+function smoothEditPreview(dt){
+ if(!moveMode||movePhase!=='edit'||!movePreview)return;
+ const blend=1-Math.exp(-Math.min(dt,.05)*15);
+ movePreview.position.lerp(editGoalPosition,blend);
+ movePreview.scale.lerp(editGoalScale,blend);
+ const diff=Math.atan2(Math.sin(editGoalRotation.y-movePreview.rotation.y),Math.cos(editGoalRotation.y-movePreview.rotation.y));
+ movePreview.rotation.y+=diff*blend;
+ updateMoveValid();
+}
+
+const movePlane=new THREE.Plane(new THREE.Vector3(0,1,0),0),movePlaneHit=new THREE.Vector3();let editPointerX=0,editPointerY=0;
 const axisNames={x:'X',y:'Y',z:'Z'};
 function moveAxisValue(){if(!movePreview)return 0;return moveOperation==='translate'?movePreview.position[moveAxis]:moveOperation==='rotate'?THREE.MathUtils.radToDeg(movePreview.rotation[moveAxis]):movePreview.scale[moveAxis];}
-function setMoveAxisValue(v){if(!movePreview)return;if(moveOperation==='translate')movePreview.position[moveAxis]=v;else if(moveOperation==='rotate')movePreview.rotation[moveAxis]=THREE.MathUtils.degToRad(v);else movePreview.scale[moveAxis]=THREE.MathUtils.clamp(v,.25,4);updateMoveValid();updatePrecisionLabel();}
+function setMoveAxisValue(v){if(!movePreview)return;if(moveOperation==='translate')editGoalPosition[moveAxis]=v;else if(moveOperation==='rotate')editGoalRotation[moveAxis]=THREE.MathUtils.degToRad(v);else editGoalScale[moveAxis]=THREE.MathUtils.clamp(v,.25,4);updateMoveValid();updatePrecisionLabel();}
 function updatePrecisionLabel(){if(!movePreview)return;const unit=moveOperation==='translate'?' m':moveOperation==='rotate'?'°':'×';$('#precisionValue').textContent=moveAxis.toUpperCase()+': '+moveAxisValue().toFixed(moveOperation==='rotate'?0:2)+unit;}
 function setMoveAxis(axis){moveAxis=axis;for(const el of $('#axisControls').querySelectorAll('[data-axis]'))el.classList.toggle('active',el.dataset.axis===axis);updatePrecisionLabel();}
 for(const el of $('#axisControls').querySelectorAll('[data-axis]'))el.onclick=()=>setMoveAxis(el.dataset.axis);
 $('#fineMinus').onclick=()=>setMoveAxisValue(moveAxisValue()-(moveOperation==='translate'?.1:moveOperation==='rotate'?5:.05));
 $('#finePlus').onclick=()=>setMoveAxisValue(moveAxisValue()+(moveOperation==='translate'?.1:moveOperation==='rotate'?5:.05));
-$('#resetTransform').onclick=()=>{if(!movePreview||!moveTarget)return;movePreview.position.copy(moveTarget.mesh.position);movePreview.rotation.copy(moveTarget.mesh.rotation);movePreview.scale.copy(moveTarget.mesh.scale);updateMoveValid();updatePrecisionLabel();};
+$('#resetTransform').onclick=()=>{if(!movePreview||!moveTarget)return;editGoalPosition.copy(moveTarget.mesh.position);editGoalRotation.copy(moveTarget.mesh.rotation);editGoalScale.copy(moveTarget.mesh.scale);resetEditAnchor();updateMoveValid();updatePrecisionLabel();};
 function stopMoving(){moveMode=false;moveDragging=false;moveTarget=null;movePhase='select';transformTool.style.display='none';if(movePreview){scene.remove(movePreview);movePreview.geometry.dispose();movePreview=null}if(!buildMode&&!destroyMode)placementHint.style.display='none';}
 function startMoving(){stopBuilding();stopDestroying();hideDogUI();moveMode=true;movePhase='select';moveTarget=null;transformTool.style.display='none';placementHint.textContent='✥ APUNTA AL BLOQUE · CLIC PARA SELECCIONAR · ESC CANCELA';placementHint.style.display='block';if(document.pointerLockElement===renderer.domElement)document.exitPointerLock();}
 function moveHit(e){setRayFromEvent(e);const hit=selectionRay.intersectObjects(buildBlocks.map(b=>b.mesh),false).find(h=>h.distance<35);return hit?buildBlocks.find(b=>b.mesh===hit.object):null;}
-function moveValidity(){if(!movePreview||!moveTarget)return false;const p=movePreview.position,sz=1.2;const half={x:sz*movePreview.scale.x/2,y:sz*movePreview.scale.y/2,z:sz*movePreview.scale.z/2};if(p.y-half.y<-.02)return false;for(const b of buildBlocks){if(b===moveTarget)continue;const q=b.mesh.position,bs=b.mesh.scale;if(Math.abs(p.x-q.x)<half.x+sz*bs.x/2-.012&&Math.abs(p.y-q.y)<half.y+sz*bs.y/2-.012&&Math.abs(p.z-q.z)<half.z+sz*bs.z/2-.012)return false;}return true;}
+function moveValidity(){
+ if(!movePreview||!moveTarget)return false;
+ // Validate the actual mouse target, not the delayed visual interpolation.
+ const p=editGoalPosition,sz=1.2;
+ const half={x:sz*editGoalScale.x/2,y:sz*editGoalScale.y/2,z:sz*editGoalScale.z/2};
+ if(p.y-half.y<-.02)return false;
+ for(const b of buildBlocks){
+  if(b===moveTarget)continue;
+  const q=b.mesh.position,bs=b.mesh.scale;
+  if(Math.abs(p.x-q.x)<half.x+sz*bs.x/2-.012&&Math.abs(p.y-q.y)<half.y+sz*bs.y/2-.012&&Math.abs(p.z-q.z)<half.z+sz*bs.z/2-.012)return false;
+ }
+ return true;
+}
 function updateMoveValid(){moveValid=moveValidity();if(movePreview){movePreview.material.color.setHex(moveValid?0x80f7d9:0xff6674);movePreview.material.opacity=moveValid?.48:.7}$('#applyTransform').disabled=!moveValid;transformStatus.textContent=moveValid?'· POSICIÓN VÁLIDA':'· COLISIÓN';transformStatus.className=moveValid?'':'toolError';}
-function selectMoving(e,selectedBlock=null){const b=selectedBlock||moveHit(e);if(!b)return;moveTarget=b;movePhase='edit';moveOperation='translate';movePreview=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.2,1.2),new THREE.MeshBasicMaterial({color:0x80f7d9,transparent:true,opacity:.48,depthWrite:false,wireframe:true,depthTest:false}));movePreview.position.copy(b.mesh.position);movePreview.rotation.copy(b.mesh.rotation);movePreview.scale.copy(b.mesh.scale);scene.add(movePreview);setMoveAxis('x');transformTool.style.display='block';placementHint.style.display='none';for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.classList.toggle('active',btn.dataset.transform==='translate');updateMoveValid();updatePrecisionLabel();dogUiBeep('select');}
-function commitMove(){if(!moveTarget||!moveValid)return;const b=moveTarget, pos=movePreview.position.clone(),rot=movePreview.rotation.clone(),scale=movePreview.scale.clone();stopMoving();dogUiBeep('build');assignDogWork({position:pos.clone(),move:b,rotation:rot,scale},'move','QUADRUPED UNIT 01 · TRANSFORMANDO');}
+function selectMoving(e,selectedBlock=null){const b=selectedBlock||moveHit(e);if(!b)return;moveTarget=b;movePhase='edit';moveOperation='translate';movePreview=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.2,1.2),new THREE.MeshBasicMaterial({color:0x80f7d9,transparent:true,opacity:.48,depthWrite:false,wireframe:true,depthTest:false}));movePreview.position.copy(b.mesh.position);movePreview.rotation.copy(b.mesh.rotation);movePreview.scale.copy(b.mesh.scale);scene.add(movePreview);editGoalPosition.copy(b.mesh.position);editGoalRotation.copy(b.mesh.rotation);editGoalScale.copy(b.mesh.scale);resetEditAnchor(e?.clientX??innerWidth/2,e?.clientY??innerHeight/2);setMoveAxis('x');movePlane.constant=-b.mesh.position.y;transformTool.style.display='block';placementHint.style.display='block';placementHint.textContent='MUEVE EL RATÓN PARA COLOCAR · RUEDA PARA ALTURA';for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.classList.toggle('active',btn.dataset.transform==='translate');updateMoveValid();updatePrecisionLabel();dogUiBeep('select');}
+function commitMove(){
+ if(!moveTarget||movePhase!=='edit')return;
+ // Synchronize the target before validating. The ghost is deliberately smoothed,
+ // so its previous position must never veto the click.
+ moveValid=moveValidity();
+ if(!moveValid){
+  transformStatus.textContent='· POSICIÓN OCUPADA: MUEVE UN POCO EL RATÓN';
+  transformStatus.className='toolError';dogUiBeep('select');return;
+ }
+ const b=moveTarget;
+ const pos=editGoalPosition.clone(),rot=editGoalRotation.clone(),scale=editGoalScale.clone();
+ stopMoving();
+ // A click commits immediately: no invisible pending dog task or long wait.
+ applyMovedBlock({move:b,position:pos,rotation:rot,scale});
+ spawnConstructionFX(pos);constructionFinishedSound();dogUiBeep('build');
+ dogStatus.textContent='QUADRUPED UNIT 01 · TRANSFORMACIÓN COMPLETADA';
+}
 function applyMovedBlock(task){const b=task.move;if(!buildBlocks.includes(b))return;b.mesh.position.copy(task.position);b.mesh.rotation.copy(task.rotation);b.mesh.scale.copy(task.scale);b.vy=0;b.rest=false;rebuildBlockPhysics(b);b.collider.x=b.mesh.position.x;b.collider.z=b.mesh.position.z;b.collider.w=1.2*b.mesh.scale.x;b.collider.d=1.2*b.mesh.scale.z;}
-for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.onclick=()=>{moveOperation=btn.dataset.transform;for(const el of transformTool.querySelectorAll('[data-transform]'))el.classList.toggle('active',el===btn);transformHint.textContent=moveOperation==='translate'?'TRASLADAR · X/Z horizontal · Y altura. Selecciona eje y arrastra.':moveOperation==='rotate'?'ROTAR · elige X, Y o Z. Arrastra para girar en grados.':'ESCALAR · elige X, Y o Z. Arrastra para cambiar esa dimensión.';setMoveAxis(moveOperation==='rotate'?'y':'x');dogUiBeep('select');};
+for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.onclick=()=>{moveOperation=btn.dataset.transform;for(const el of transformTool.querySelectorAll('[data-transform]'))el.classList.toggle('active',el===btn);transformHint.textContent=moveOperation==='translate'?'Mueve el ratón: posición · rueda: altura · clic: aplicar.':moveOperation==='rotate'?'Mueve el ratón horizontalmente: girar · clic: aplicar.':'Mueve el ratón verticalmente: tamaño · clic: aplicar.';resetEditAnchor();setMoveAxis(moveOperation==='rotate'?'y':'x');dogUiBeep('select');};
 $('#cancelTransform').onclick=()=>{stopMoving();dogUiBeep('select')};$('#applyTransform').onclick=commitMove;
 function removeBlock(obj){const idx=buildBlocks.indexOf(obj);if(idx<0)return;buildBlocks.splice(idx,1);if(physicsWorld&&obj.body){physicsWorld.removeRigidBody(obj.body);obj.body=null;}scene.remove(obj.mesh);obj.mesh.geometry.dispose();const ci=collisionBoxes.indexOf(obj.collider);if(ci>=0)collisionBoxes.splice(ci,1);for(const other of buildBlocks){if(other.mesh.position.y>obj.mesh.position.y+.5){other.rest=false;other.vy=0;}}}
 function celestialDestroySound(pos){if(!audioCtx||audioCtx.state!=='running')return;const d=camera.position.distanceTo(pos),v=1/(1+(d/15)**2),t=audioCtx.currentTime;[880,659.25,440,220].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain(),at=t+i*.11;o.type='sine';o.frequency.setValueAtTime(f,at);o.frequency.exponentialRampToValueAtTime(f*.72,at+.34);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.065*v,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.45);o.connect(g).connect(audioMaster);o.start(at);o.stop(at+.47)})}
@@ -943,7 +1102,7 @@ function snapBuildPoint(raw){
 function getBuildPoint(e){
  setRayFromEvent(e);
  const targets=[...buildBlocks.map(o=>({x:o.mesh.position.x,y:o.mesh.position.y,z:o.mesh.position.z,w:1.2*o.mesh.scale.x,h:1.2*o.mesh.scale.y,d:1.2*o.mesh.scale.z,block:true})),...staticBuildVolumes().map(b=>({x:b.x,y:b.h/2,z:b.z,w:b.w,h:b.h,d:b.d,block:false}))];
- let hitTarget=null,hitPoint=null,hitDist=35;
+ let hitTarget=null,hitPoint=null,hitDist=120;
  for(const b of targets){
   buildBox.min.set(b.x-b.w/2,b.y-b.h/2,b.z-b.d/2);
   buildBox.max.set(b.x+b.w/2,b.y+b.h/2,b.z+b.d/2);
@@ -956,7 +1115,10 @@ function getBuildPoint(e){
   const b=hitTarget,h=hitPoint;
   const minX=b.x-b.w/2,maxX=b.x+b.w/2,minY=b.y-b.h/2,maxY=b.y+b.h/2,minZ=b.z-b.d/2,maxZ=b.z+b.d/2;
   const faces=[{d:Math.abs(h.y-maxY),axis:'top'},{d:Math.abs(h.x-minX),axis:'left'},{d:Math.abs(h.x-maxX),axis:'right'},{d:Math.abs(h.z-minZ),axis:'back'},{d:Math.abs(h.z-maxZ),axis:'front'},{d:Math.abs(h.y-minY),axis:'bottom'}].sort((a,b)=>a.d-b.d);
-  const face=faces[0].axis;
+  // Construction is primarily stacking: when pointing at an existing cube,
+  // prioritize its upper face, even if the camera ray struck the side.
+  // Side attachment remains available by aiming at the lower half and holding Shift.
+  const face=b.block&&!(e.shiftKey&&h.y<b.y)?'top':faces[0].axis;
   const p=new THREE.Vector3(b.x,b.y,b.z);
   if(face==='top'){p.set(b.block?b.x:h.x,maxY+.6,b.block?b.z:h.z)}
   else if(face==='bottom'){p.set(h.x,Math.max(.6,minY-.6),h.z)}
@@ -975,7 +1137,7 @@ function getBuildPoint(e){
   return null;
  }
  if(!selectionRay.ray.intersectPlane(placementGround,placementHit))return null;
- if(placementHit.distanceTo(camera.position)>35)return null;
+ if(placementHit.distanceTo(camera.position)>120)return null;
  return snapBuildPoint(new THREE.Vector3(placementHit.x,.6+buildLift*1.2,placementHit.z));
 }
 function setPlacementPreview(p){buildPoint=p;if(placementPreview){placementPreview.visible=!!p;if(p){placementPreview.position.copy(p);placementPreview.material.color.setHex(blockAllowed(p)?0x9eefff:0xff5268)}}}
@@ -991,7 +1153,9 @@ function addBlockAt(pos){if(buildBlocks.length>=75||!blockAllowed(pos))return;co
   const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.205,1.205,1.205)),new THREE.LineBasicMaterial({color:0xb7f6ff,transparent:true,opacity:.48,depthWrite:false}));mesh.add(edge);
   const inner=new THREE.Mesh(new THREE.BoxGeometry(1.13,1.13,1.13),new THREE.MeshPhysicalMaterial({color:0xf3ffff,metalness:0,roughness:.035,transmission:.85,thickness:.12,ior:1.46,transparent:true,opacity:.12,depthWrite:false}));mesh.add(inner);
  }
-mesh.position.set(pos.x,Math.max(5.8,pos.y+4.8),pos.z);mesh.castShadow=true;mesh.receiveShadow=true;scene.add(mesh);const obj={mesh,mass:masses[type],vy:0,rest:false,materialType:type,body:null};buildBlocks.push(obj);attachBlockPhysics(obj,type);const box={x:pos.x,z:pos.z,w:1.2,d:1.2,h:0};obj.collider=box;collisionBoxes.push(box)}
+// Spawn at the confirmed support height, not several metres above it.
+ // A tiny contact tolerance prevents an initial penetration impulse in Rapier.
+ mesh.position.set(pos.x,pos.y+.008,pos.z);mesh.castShadow=true;mesh.receiveShadow=true;scene.add(mesh);const obj={mesh,mass:masses[type],vy:0,rest:false,materialType:type,body:null};buildBlocks.push(obj);attachBlockPhysics(obj,type);const box={x:pos.x,z:pos.z,w:1.2,d:1.2,h:0};obj.collider=box;collisionBoxes.push(box)}
 function updateBlocks(dt){
  if(physicsWorld){attachStaticPhysics();
   physicsAccumulator=Math.min(physicsAccumulator+dt,.14);
@@ -1017,9 +1181,24 @@ function updateBlocks(dt){
  else {m.position.y=support;obj.vy=0;obj.rest=true}
  obj.collider.h=Math.max(0,m.position.y+.6*m.scale.y);
  }}
-renderer.domElement.addEventListener('pointerdown',e=>{if(!started||e.button!==0)return;if(moveMode){if(movePhase==='select')selectMoving(e);else if(!isMobileGame){moveDragging=true;moveStartPointer=moveAxis==='y'?e.clientY:e.clientX;moveStartValue=moveAxisValue();}e.stopImmediatePropagation();return;}if(destroyMode){updateDestroyTarget(e);confirmDestruction();e.stopImmediatePropagation();return;}if(buildMode){const p=getBuildPoint(e);if(p&&blockAllowed(p)){buildPoint=p;setPlacementPreview(p);confirmPlacement()}e.stopImmediatePropagation();return;}if(dogWasClicked(e)){startAudio();dogUiBeep('select');openDogMenu(e);e.stopImmediatePropagation();return;}const clickedBlock=moveHit(e);if(clickedBlock){startAudio();startMoving();selectMoving(e,clickedBlock);e.stopImmediatePropagation();return;}} ,true);
-let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domElement.addEventListener('pointermove',e=>{lastBuildMouseX=e.clientX;lastBuildMouseY=e.clientY;if(moveMode){if(movePhase==='edit'&&moveDragging&&movePreview){const delta=(moveAxis==='y'?moveStartPointer-e.clientY:e.clientX-moveStartPointer);const sensitivity=moveOperation==='translate'?.014:moveOperation==='rotate'?.65:.008;const v=moveStartValue+delta*sensitivity*(e.shiftKey?.2:1);setMoveAxisValue(v);}else if(movePhase==='select'){const b=moveHit(e);placementHint.textContent=b?'✥ CLIC PARA EDITAR BLOQUE':'✥ APUNTA A UN BLOQUE · ESC CANCELA';}return;}if(destroyMode){updateDestroyTarget(e);return;}if(!buildMode)return;const p=getBuildPoint(e);setPlacementPreview(p)});
-renderer.domElement.addEventListener('pointerup',()=>{moveDragging=false});window.addEventListener('pointerup',()=>{moveDragging=false});renderer.domElement.addEventListener('wheel',e=>{if(buildMode){e.preventDefault();buildLift=THREE.MathUtils.clamp(buildLift-Math.sign(e.deltaY),0,12);const p=getBuildPoint({clientX:lastBuildMouseX,clientY:lastBuildMouseY});setPlacementPreview(p);placementHint.textContent='ALTURA +'+buildLift+' · CLIC PARA CONSTRUIR · ESC CANCELA';return;}if(moveMode&&movePhase==='edit'&&movePreview&&moveOperation==='translate'){e.preventDefault();setMoveAxis('y');setMoveAxisValue(Math.max(.24,movePreview.position.y-Math.sign(e.deltaY)*.1));}},{passive:false});
+renderer.domElement.addEventListener('pointerdown',e=>{if(!started||e.button!==0)return;if(moveMode){if(movePhase==='select')selectMoving(e);else {commitMove();}e.stopImmediatePropagation();return;}if(destroyMode){updateDestroyTarget(e);confirmDestruction();e.stopImmediatePropagation();return;}if(buildMode){const p=getBuildPoint(e);if(p&&blockAllowed(p)){buildPoint=p;setPlacementPreview(p);confirmPlacement()}e.stopImmediatePropagation();return;}if(dogWasClicked(e)){startAudio();dogUiBeep('select');openDogMenu(e);e.stopImmediatePropagation();return;}const clickedBlock=moveHit(e);if(clickedBlock){startAudio();startMoving();selectMoving(e,clickedBlock);e.stopImmediatePropagation();return;}} ,true);
+let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domElement.addEventListener('pointermove',e=>{lastBuildMouseX=e.clientX;lastBuildMouseY=e.clientY;if(moveMode){if(movePhase==='edit'&&movePreview){
+ editLastPointerX=e.clientX;editLastPointerY=e.clientY;
+ if(moveOperation==='translate'){
+   setRayFromEvent(e);movePlane.constant=-editGoalPosition.y;
+   if(selectionRay.ray.intersectPlane(movePlane,movePlaneHit)&&movePlaneHit.distanceTo(camera.position)<180){
+     editGoalPosition.x=THREE.MathUtils.clamp(movePlaneHit.x,-120,120);
+     editGoalPosition.z=THREE.MathUtils.clamp(movePlaneHit.z,-213,70);
+   }
+ }else if(moveOperation==='rotate'){
+   editGoalRotation.y=editAnchorRotation+(e.clientX-editAnchorX)*(e.shiftKey?.003:.012);
+ }else if(moveOperation==='scale'){
+   const factor=Math.exp((editAnchorY-e.clientY)*(e.shiftKey?.002:.008));
+   editGoalScale.setScalar(THREE.MathUtils.clamp(editAnchorScale*factor,.25,8));
+ }
+ editPointerX=e.clientX;editPointerY=e.clientY;
+ }else if(movePhase==='select'){const b=moveHit(e);placementHint.textContent=b?'✥ CLIC PARA EDITAR BLOQUE':'✥ APUNTA A UN BLOQUE · ESC CANCELA';}return;}if(destroyMode){updateDestroyTarget(e);return;}if(!buildMode)return;const p=getBuildPoint(e);setPlacementPreview(p)});
+renderer.domElement.addEventListener('pointerup',()=>{moveDragging=false});window.addEventListener('pointerup',()=>{moveDragging=false});renderer.domElement.addEventListener('wheel',e=>{if(buildMode){e.preventDefault();buildLift=THREE.MathUtils.clamp(buildLift-Math.sign(e.deltaY)*(e.shiftKey?5:1),0,100);const p=getBuildPoint({clientX:lastBuildMouseX,clientY:lastBuildMouseY});setPlacementPreview(p);placementHint.textContent='ALTURA '+(buildLift*1.2).toFixed(1)+' m · RUEDA: ±1,2 m · MAYÚS+RUEDA: ±6 m · CLIC PARA CONSTRUIR';return;}if(moveMode&&movePhase==='edit'&&movePreview&&moveOperation==='translate'){e.preventDefault();editGoalPosition.y=Math.max(.6,editGoalPosition.y-Math.sign(e.deltaY)*(e.shiftKey?.12:1.2));movePlane.constant=-editGoalPosition.y;updateMoveValid();}},{passive:false});
 document.addEventListener('pointerdown',e=>{if(!dogMenu.contains(e.target)&&!dogPanel.contains(e.target)&&e.target!==renderer.domElement)dogMenu.style.display='none'});
 document.addEventListener('keydown',e=>{if(e.code==='Escape'){if(buildMode)stopBuilding();if(destroyMode)stopDestroying();if(moveMode)stopMoving();hideDogUI()}});
 // Smooth follow controller, with a diagonal-trot gait and two-joint IK per leg.
@@ -1187,7 +1366,7 @@ if(isMobileGame){
  tap('mJump',()=>{if(onGround){verticalSpeed=jumpVelocity;onGround=false}});
  tap('mRun',()=>{mobileRun=!mobileRun;document.getElementById('mRun').classList.toggle('pressed',mobileRun)});
  tap('mTorch',()=>{torchEnabled=!torchEnabled;torchLight.visible=torchEnabled;document.getElementById('mTorch').classList.toggle('pressed',torchEnabled)});
- const adjustHeight=dir=>{if(buildMode){buildLift=THREE.MathUtils.clamp(buildLift+dir,0,12);const p=getBuildPoint({clientX:innerWidth/2,clientY:innerHeight/2});setPlacementPreview(p)}else if(moveMode&&movePhase==='edit'){setMoveAxis('y');setMoveAxisValue(moveAxisValue()+dir*.1)}};
+ const adjustHeight=dir=>{if(buildMode){buildLift=THREE.MathUtils.clamp(buildLift+dir,0,100);const p=getBuildPoint({clientX:innerWidth/2,clientY:innerHeight/2});setPlacementPreview(p)}else if(moveMode&&movePhase==='edit'){editGoalPosition.y=Math.max(.6,editGoalPosition.y+dir*1.2);movePlane.constant=-editGoalPosition.y;updateMoveValid()}};
  tap('mUp',()=>adjustHeight(1));tap('mDown',()=>adjustHeight(-1));
  tap('mAction',()=>{if(!started||utilityOverlay.style.display==='grid')return;const event=new PointerEvent('pointerdown',{bubbles:true,cancelable:true,button:0,clientX:innerWidth/2,clientY:innerHeight/2,pointerType:'mouse'});renderer.domElement.dispatchEvent(event)});
  document.addEventListener('touchmove',e=>{if(e.target.closest('#mobilePad'))e.preventDefault()},{passive:false});
@@ -1195,7 +1374,7 @@ if(isMobileGame){
 
 let lastPlayerX=camera.position.x,lastPlayerZ=camera.position.z;
 window.bootProgress?.(88,"Activando robot y simulación…");
-const clock=new THREE.Clock();let bootFinished=false;function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05);elapsed+=dt;
+const clock=new THREE.Clock();let bootFinished=false;function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05);elapsed+=dt;smoothEditPreview(dt);
 if(started){if(keys.Space&&onGround){verticalSpeed=jumpVelocity;onGround=false}verticalSpeed-=gravity*dt;feet+=verticalSpeed*dt;if(feet<=0){feet=0;verticalSpeed=0;onGround=true}
 const speed=((keys.ShiftLeft||mobileRun)?10:5.4)*dt;const forward=isMobileGame?mobileForward:Number(!!keys.KeyW)-Number(!!keys.KeyS),strafe=isMobileGame?mobileStrafe:Number(!!keys.KeyD)-Number(!!keys.KeyA);const magnitude=Math.max(1,Math.hypot(forward,strafe));const dx=(Math.sin(yaw)*-forward+Math.cos(yaw)*strafe)*speed/magnitude;const dz=(Math.cos(yaw)*-forward-Math.sin(yaw)*strafe)*speed/magnitude;
 if(!obstructed(camera.position.x+dx,camera.position.z,feet))camera.position.x+=dx;if(!obstructed(camera.position.x,camera.position.z+dz,feet))camera.position.z+=dz;
@@ -1205,13 +1384,13 @@ const actualPlayerSpeed=Math.hypot(camera.position.x-lastPlayerX,camera.position
  while(stepTravel>=stride){stepTravel-=stride;playerFootstep(actualPlayerSpeed)}}else stepTravel=0;
  const moving=forward||strafe;camera.position.y=eyeHeight+feet+(moving&&onGround?Math.sin(elapsed*10)*.022:0);camera.rotation.order='YXZ';camera.rotation.y=yaw;camera.rotation.x=pitch}
 animateDog(dt,elapsed);updateBlocks(dt);updateConstructionFX(dt);if(isMobileGame&&started&&buildMode){const p=getBuildPoint({clientX:innerWidth/2,clientY:innerHeight/2});setPlacementPreview(p)}if(isMobileGame&&started&&destroyMode)updateDestroyTarget({clientX:innerWidth/2,clientY:innerHeight/2});if(buildMode&&placementPreview&&buildPoint){placementPreview.visible=true;placementPreview.position.copy(buildPoint)}dogWetClock.value=elapsed;animateChassisRain(dt);animateLegRain(dt);
-impactClock+=dt;
-while(impactClock>.026){impactClock-=.026;const x=camera.position.x+rr(-15,15),z=camera.position.z+rr(-15,15);addImpact(x,z,elapsed)}
+impactClock=rainEnabled?Math.min(impactClock+dt,.1):0;
+while(rainEnabled&&impactClock>.026){impactClock-=.026;const x=camera.position.x+rr(-15,15),z=camera.position.z+rr(-15,15);addImpact(x,z,elapsed)}
 crownMaterial.uniforms.uTime.value=elapsed;
 if(groundMat.userData.shader){const a=groundMat.userData.shader.uniforms.uImpacts.value;
 for(let i=0;i<IMPACT_COUNT;i++){const hit=impactEvents[i];a[i].set(hit.x,hit.z,hit.time,hit.wet)}}
 updateInteriorVisibility();interiorMaterial.uniforms.uTime.value=elapsed;puddleMat.uniforms.uTime.value=elapsed;if(groundMat.userData.shader)groundMat.userData.shader.uniforms.uTime.value=elapsed;
-for(let i=0;i<N;i++){let j=i*6;arr[j+1]-=speeds[i]*dt;arr[j+4]-=speeds[i]*dt;if(arr[j+1]<.1){let x=camera.position.x+rr(-33,33),y=rr(17,29),z=camera.position.z+rr(-30,30);arr.set([x,y,z,x-.065,y-.65,z+.04],j)}else if(arr[j+4]<.1){arr[j+4]=.05}}rainGeo.attributes.position.needsUpdate=true;
-for(let i=0;i<mists.length;i++)mists[i].position.x+=Math.sin(elapsed*.12+i)*dt*.12;composer.render();if(!bootFinished){bootFinished=true;window.bootProgress?.(100,"Escena preparada · pulsa para entrar");requestAnimationFrame(()=>document.getElementById("bootScreen")?.classList.add("done"));}frames++;fpstime+=dt;if(fpstime>1.5){$('#perf').textContent=Math.round(frames/fpstime)+' FPS  ·  THREE.JS / WEBGL2';frames=0;fpstime=0}}
+if(rainEnabled)for(let i=0;i<N;i++){let j=i*6;arr[j+1]-=speeds[i]*dt;arr[j+4]-=speeds[i]*dt;if(arr[j+1]<.1){let x=camera.position.x+rr(-33,33),y=rr(17,29),z=camera.position.z+rr(-30,30);arr.set([x,y,z,x-.065,y-.65,z+.04],j)}else if(arr[j+4]<.1){arr[j+4]=.05}}if(rainEnabled)rainGeo.attributes.position.needsUpdate=true;
+if(atmosphereEnabled)for(let i=0;i<mists.length;i++)mists[i].position.x+=Math.sin(elapsed*.12+i)*dt*.12;composer.render();if(!bootFinished){bootFinished=true;window.bootProgress?.(100,"Escena preparada · pulsa para entrar");requestAnimationFrame(()=>document.getElementById("bootScreen")?.classList.add("done"));}updateLampLighting();autoTuneResolution(dt);frames++;fpstime+=dt;if(fpstime>1.5){$('#perf').textContent=Math.round(frames/fpstime)+' FPS  ·  THREE.JS / WEBGL2';frames=0;fpstime=0}}
 animate();$('#loading').remove();window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);applyGraphicsQuality(graphicsQuality)});
 </script></body></html>
