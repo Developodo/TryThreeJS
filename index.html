@@ -822,7 +822,7 @@ let yaw=0,pitch=0,locked=false,elapsed=0,frames=0,fpstime=0;const keys={};const 
 intro.addEventListener('click',()=>{startAudio();started=true;intro.style.display='none';if(!isMobileGame)renderer.domElement.requestPointerLock?.().catch(()=>{});});
 renderer.domElement.addEventListener('click',()=>{startAudio();if(!isMobileGame&&started&&!locked&&utilityOverlay.style.display!=='grid'&&!buildMode&&!destroyMode&&dogMenu.style.display!=='block'&&dogPanel.style.display!=='block')renderer.domElement.requestPointerLock?.().catch(()=>{});});
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===renderer.domElement;document.getElementById('cross').classList.toggle('aiming',locked);if(locked){started=true;intro.style.display='none'}});
-document.addEventListener('mousemove',e=>{if(!started||moveMode||(!locked&&e.buttons!==1))return;yaw-=e.movementX*.0021;pitch=clamp(pitch-e.movementY*.0021,-1.35,1.35)});
+document.addEventListener('mousemove',e=>{if(!started||((moveMode&&!(e.buttons&2)&&!e.altKey))||(!moveMode&&!locked&&e.buttons!==1))return;yaw-=e.movementX*.0021;pitch=clamp(pitch-e.movementY*.0021,-1.35,1.35)});
 document.addEventListener('keydown',e=>{if(e.code==='KeyF'&&!e.repeat){torchEnabled=!torchEnabled;torchLight.visible=torchEnabled;}keys[e.code]=true;if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});document.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 const eyeHeight=1.78,playerRadius=.43;let feet=0,verticalSpeed=0,onGround=true;const gravity=22,jumpVelocity=8.5;
 function obstructed(x,z,footY){if(Math.abs(x)>122||z>72||z< -215)return true;for(const b of collisionBoxes){if(footY<b.h-.08&&x>b.x-b.w/2-playerRadius&&x<b.x+b.w/2+playerRadius&&z>b.z-b.d/2-playerRadius&&z<b.z+b.d/2+playerRadius)return true}return false}
@@ -836,11 +836,15 @@ const buildBlocks=[];
 let RAPIER=null,physicsWorld=null,physicsAccumulator=0;
 const PHYSICS_STEP=1/60, PHYSICS_MAX_STEPS=5;
 const physicsStatics=new Set();
+let physicsGroundCreated=false;
 const physicsMaterial={stone:{density:2.7,friction:.85,restitution:.07},metal:{density:7.8,friction:.55,restitution:.16},glass:{density:2.5,friction:.42,restitution:.12},glow:{density:1.8,friction:.65,restitution:.10}};
 function attachStaticPhysics(){
  if(!physicsWorld)return;
- const ground=physicsWorld.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(0,-.5,0));
- physicsWorld.createCollider(RAPIER.ColliderDesc.cuboid(150,.5,250).setFriction(.85),ground);
+ if(!physicsGroundCreated){
+  const ground=physicsWorld.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(0,-.5,0));
+  physicsWorld.createCollider(RAPIER.ColliderDesc.cuboid(150,.5,250).setFriction(.85),ground);
+  physicsGroundCreated=true;
+ }
  for(const b of collisionBoxes){if(b===dogCollider||buildBlocks.some(o=>o.collider===b)||physicsStatics.has(b)||b.h<=.05)continue;
   const rb=physicsWorld.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(b.x,b.h/2,b.z));
   physicsWorld.createCollider(RAPIER.ColliderDesc.cuboid(Math.max(.03,b.w/2),b.h/2,Math.max(.03,b.d/2)).setFriction(.8),rb);
@@ -1043,7 +1047,7 @@ function moveValidity(){
  return true;
 }
 function updateMoveValid(){moveValid=moveValidity();if(movePreview){movePreview.material.color.setHex(moveValid?0x80f7d9:0xff6674);movePreview.material.opacity=moveValid?.48:.7}$('#applyTransform').disabled=!moveValid;transformStatus.textContent=moveValid?'· POSICIÓN VÁLIDA':'· COLISIÓN';transformStatus.className=moveValid?'':'toolError';}
-function selectMoving(e,selectedBlock=null){const b=selectedBlock||moveHit(e);if(!b)return;moveTarget=b;movePhase='edit';moveOperation='translate';movePreview=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.2,1.2),new THREE.MeshBasicMaterial({color:0x80f7d9,transparent:true,opacity:.48,depthWrite:false,wireframe:true,depthTest:false}));movePreview.position.copy(b.mesh.position);movePreview.rotation.copy(b.mesh.rotation);movePreview.scale.copy(b.mesh.scale);scene.add(movePreview);editGoalPosition.copy(b.mesh.position);editGoalRotation.copy(b.mesh.rotation);editGoalScale.copy(b.mesh.scale);resetEditAnchor(e?.clientX??innerWidth/2,e?.clientY??innerHeight/2);setMoveAxis('x');movePlane.constant=-b.mesh.position.y;transformTool.style.display='block';placementHint.style.display='block';placementHint.textContent='MUEVE EL RATÓN PARA COLOCAR · RUEDA PARA ALTURA';for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.classList.toggle('active',btn.dataset.transform==='translate');updateMoveValid();updatePrecisionLabel();dogUiBeep('select');}
+function selectMoving(e,selectedBlock=null){const b=selectedBlock||moveHit(e);if(!b)return;moveTarget=b;movePhase='edit';moveOperation='translate';movePreview=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.2,1.2),new THREE.MeshBasicMaterial({color:0x80f7d9,transparent:true,opacity:.48,depthWrite:false,wireframe:true,depthTest:false}));movePreview.position.copy(b.mesh.position);movePreview.rotation.copy(b.mesh.rotation);movePreview.scale.copy(b.mesh.scale);scene.add(movePreview);editGoalPosition.copy(b.mesh.position);editGoalRotation.copy(b.mesh.rotation);editGoalScale.copy(b.mesh.scale);resetEditAnchor(e?.clientX??innerWidth/2,e?.clientY??innerHeight/2);setMoveAxis('x');movePlane.constant=-b.mesh.position.y;transformTool.style.display='block';placementHint.style.display='block';placementHint.textContent='RATÓN: MOVER · BOTÓN DERECHO + ARRASTRAR: MIRAR ARRIBA/ABAJO · CLIC IZQUIERDO: APLICAR';for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.classList.toggle('active',btn.dataset.transform==='translate');updateMoveValid();updatePrecisionLabel();dogUiBeep('select');}
 function commitMove(){
  if(!moveTarget||movePhase!=='edit')return;
  // Synchronize the target before validating. The ghost is deliberately smoothed,
@@ -1062,7 +1066,7 @@ function commitMove(){
  dogStatus.textContent='QUADRUPED UNIT 01 · TRANSFORMACIÓN COMPLETADA';
 }
 function applyMovedBlock(task){const b=task.move;if(!buildBlocks.includes(b))return;b.mesh.position.copy(task.position);b.mesh.rotation.copy(task.rotation);b.mesh.scale.copy(task.scale);b.vy=0;b.rest=false;rebuildBlockPhysics(b);b.collider.x=b.mesh.position.x;b.collider.z=b.mesh.position.z;b.collider.w=1.2*b.mesh.scale.x;b.collider.d=1.2*b.mesh.scale.z;}
-for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.onclick=()=>{moveOperation=btn.dataset.transform;for(const el of transformTool.querySelectorAll('[data-transform]'))el.classList.toggle('active',el===btn);transformHint.textContent=moveOperation==='translate'?'Mueve el ratón: posición · rueda: altura · clic: aplicar.':moveOperation==='rotate'?'Mueve el ratón horizontalmente: girar · clic: aplicar.':'Mueve el ratón verticalmente: tamaño · clic: aplicar.';resetEditAnchor();setMoveAxis(moveOperation==='rotate'?'y':'x');dogUiBeep('select');};
+for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.onclick=()=>{moveOperation=btn.dataset.transform;for(const el of transformTool.querySelectorAll('[data-transform]'))el.classList.toggle('active',el===btn);transformHint.textContent=moveOperation==='translate'?'Ratón: posición · rueda: altura · botón derecho + arrastrar: mirar · clic izquierdo: aplicar.':moveOperation==='rotate'?'Ratón horizontal: girar · botón derecho + arrastrar: mirar · clic izquierdo: aplicar.':'Ratón vertical: tamaño · botón derecho + arrastrar: mirar · clic izquierdo: aplicar.';resetEditAnchor();setMoveAxis(moveOperation==='rotate'?'y':'x');dogUiBeep('select');};
 $('#cancelTransform').onclick=()=>{stopMoving();dogUiBeep('select')};$('#applyTransform').onclick=commitMove;
 function removeBlock(obj){const idx=buildBlocks.indexOf(obj);if(idx<0)return;buildBlocks.splice(idx,1);if(physicsWorld&&obj.body){physicsWorld.removeRigidBody(obj.body);obj.body=null;}scene.remove(obj.mesh);obj.mesh.geometry.dispose();const ci=collisionBoxes.indexOf(obj.collider);if(ci>=0)collisionBoxes.splice(ci,1);for(const other of buildBlocks){if(other.mesh.position.y>obj.mesh.position.y+.5){other.rest=false;other.vy=0;}}}
 function celestialDestroySound(pos){if(!audioCtx||audioCtx.state!=='running')return;const d=camera.position.distanceTo(pos),v=1/(1+(d/15)**2),t=audioCtx.currentTime;[880,659.25,440,220].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain(),at=t+i*.11;o.type='sine';o.frequency.setValueAtTime(f,at);o.frequency.exponentialRampToValueAtTime(f*.72,at+.34);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.065*v,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.45);o.connect(g).connect(audioMaster);o.start(at);o.stop(at+.47)})}
@@ -1156,8 +1160,9 @@ function addBlockAt(pos){if(buildBlocks.length>=75||!blockAllowed(pos))return;co
 // Spawn at the confirmed support height, not several metres above it.
  // A tiny contact tolerance prevents an initial penetration impulse in Rapier.
  mesh.position.set(pos.x,pos.y+.008,pos.z);mesh.castShadow=true;mesh.receiveShadow=true;scene.add(mesh);const obj={mesh,mass:masses[type],vy:0,rest:false,materialType:type,body:null};buildBlocks.push(obj);attachBlockPhysics(obj,type);const box={x:pos.x,z:pos.z,w:1.2,d:1.2,h:0};obj.collider=box;collisionBoxes.push(box)}
+const blockRotationMatrix=new THREE.Matrix4();
 function updateBlocks(dt){
- if(physicsWorld){attachStaticPhysics();
+ if(physicsWorld){
   physicsAccumulator=Math.min(physicsAccumulator+dt,.14);
   let n=0;while(physicsAccumulator>=PHYSICS_STEP&&n++<PHYSICS_MAX_STEPS){physicsWorld.timestep=PHYSICS_STEP;physicsWorld.step();physicsAccumulator-=PHYSICS_STEP;}
   for(const obj of buildBlocks){
@@ -1167,7 +1172,7 @@ function updateBlocks(dt){
    obj.collider.x=p.x;obj.collider.z=p.z;
    // Conservative broadphase bounds for player/dog navigation and placement.
    const hx=.6*m.scale.x,hy=.6*m.scale.y,hz=.6*m.scale.z;
-   const e=new THREE.Matrix4().makeRotationFromQuaternion(m.quaternion).elements;
+   const e=blockRotationMatrix.makeRotationFromQuaternion(m.quaternion).elements;
    const ax=Math.abs(e[0])*hx+Math.abs(e[4])*hy+Math.abs(e[8])*hz;
    const ay=Math.abs(e[1])*hx+Math.abs(e[5])*hy+Math.abs(e[9])*hz;
    const az=Math.abs(e[2])*hx+Math.abs(e[6])*hy+Math.abs(e[10])*hz;
@@ -1182,7 +1187,7 @@ function updateBlocks(dt){
  obj.collider.h=Math.max(0,m.position.y+.6*m.scale.y);
  }}
 renderer.domElement.addEventListener('pointerdown',e=>{if(!started||e.button!==0)return;if(moveMode){if(movePhase==='select')selectMoving(e);else {commitMove();}e.stopImmediatePropagation();return;}if(destroyMode){updateDestroyTarget(e);confirmDestruction();e.stopImmediatePropagation();return;}if(buildMode){const p=getBuildPoint(e);if(p&&blockAllowed(p)){buildPoint=p;setPlacementPreview(p);confirmPlacement()}e.stopImmediatePropagation();return;}if(dogWasClicked(e)){startAudio();dogUiBeep('select');openDogMenu(e);e.stopImmediatePropagation();return;}const clickedBlock=moveHit(e);if(clickedBlock){startAudio();startMoving();selectMoving(e,clickedBlock);e.stopImmediatePropagation();return;}} ,true);
-let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domElement.addEventListener('pointermove',e=>{lastBuildMouseX=e.clientX;lastBuildMouseY=e.clientY;if(moveMode){if(movePhase==='edit'&&movePreview){
+let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domElement.addEventListener('pointermove',e=>{lastBuildMouseX=e.clientX;lastBuildMouseY=e.clientY;if(moveMode){if((e.buttons&2)||e.altKey)return;if(movePhase==='edit'&&movePreview){
  editLastPointerX=e.clientX;editLastPointerY=e.clientY;
  if(moveOperation==='translate'){
    setRayFromEvent(e);movePlane.constant=-editGoalPosition.y;
@@ -1198,6 +1203,7 @@ let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domEleme
  }
  editPointerX=e.clientX;editPointerY=e.clientY;
  }else if(movePhase==='select'){const b=moveHit(e);placementHint.textContent=b?'✥ CLIC PARA EDITAR BLOQUE':'✥ APUNTA A UN BLOQUE · ESC CANCELA';}return;}if(destroyMode){updateDestroyTarget(e);return;}if(!buildMode)return;const p=getBuildPoint(e);setPlacementPreview(p)});
+renderer.domElement.addEventListener('contextmenu',e=>{if(moveMode)e.preventDefault()});
 renderer.domElement.addEventListener('pointerup',()=>{moveDragging=false});window.addEventListener('pointerup',()=>{moveDragging=false});renderer.domElement.addEventListener('wheel',e=>{if(buildMode){e.preventDefault();buildLift=THREE.MathUtils.clamp(buildLift-Math.sign(e.deltaY)*(e.shiftKey?5:1),0,100);const p=getBuildPoint({clientX:lastBuildMouseX,clientY:lastBuildMouseY});setPlacementPreview(p);placementHint.textContent='ALTURA '+(buildLift*1.2).toFixed(1)+' m · RUEDA: ±1,2 m · MAYÚS+RUEDA: ±6 m · CLIC PARA CONSTRUIR';return;}if(moveMode&&movePhase==='edit'&&movePreview&&moveOperation==='translate'){e.preventDefault();editGoalPosition.y=Math.max(.6,editGoalPosition.y-Math.sign(e.deltaY)*(e.shiftKey?.12:1.2));movePlane.constant=-editGoalPosition.y;updateMoveValid();}},{passive:false});
 document.addEventListener('pointerdown',e=>{if(!dogMenu.contains(e.target)&&!dogPanel.contains(e.target)&&e.target!==renderer.domElement)dogMenu.style.display='none'});
 document.addEventListener('keydown',e=>{if(e.code==='Escape'){if(buildMode)stopBuilding();if(destroyMode)stopDestroying();if(moveMode)stopMoving();hideDogUI()}});
