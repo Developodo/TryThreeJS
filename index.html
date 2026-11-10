@@ -820,9 +820,28 @@ document.addEventListener('keydown',e=>{if(e.code==='Escape'&&utilityOverlay.sty
 // Camera controls and grounded movement.
 let yaw=0,pitch=0,locked=false,elapsed=0,frames=0,fpstime=0;const keys={};const intro=$('#intro');let started=false;
 intro.addEventListener('click',()=>{startAudio();started=true;intro.style.display='none';if(!isMobileGame)renderer.domElement.requestPointerLock?.().catch(()=>{});});
-renderer.domElement.addEventListener('click',()=>{startAudio();if(!isMobileGame&&started&&!locked&&utilityOverlay.style.display!=='grid'&&!buildMode&&!destroyMode&&dogMenu.style.display!=='block'&&dogPanel.style.display!=='block')renderer.domElement.requestPointerLock?.().catch(()=>{});});
+renderer.domElement.addEventListener('click',()=>{startAudio();if(!isMobileGame&&started&&!locked&&utilityOverlay.style.display!=='grid'&&!buildMode&&!destroyMode&&!moveMode&&dogMenu.style.display!=='block'&&dogPanel.style.display!=='block')renderer.domElement.requestPointerLock?.().catch(()=>{});});
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===renderer.domElement;document.getElementById('cross').classList.toggle('aiming',locked);if(locked){started=true;intro.style.display='none'}});
-document.addEventListener('mousemove',e=>{if(!started||((moveMode&&!(e.buttons&2)&&!e.altKey))||(!moveMode&&!locked&&e.buttons!==1))return;yaw-=e.movementX*.0021;pitch=clamp(pitch-e.movementY*.0021,-1.35,1.35)});
+// Editing gesture: press and drag to look; a stationary click applies the edit.
+let editLookGesture=null;
+const EDIT_DRAG_THRESHOLD=6;
+function editingActive(){return buildMode||destroyMode||moveMode;}
+function isEditGestureDrag(e){return !!editLookGesture&&editLookGesture.pointerId===e.pointerId&&editLookGesture.dragged;}
+document.addEventListener('mousemove',e=>{
+ if(!started)return;
+ if(editingActive()){
+  if(!editLookGesture||!(e.buttons&1)&&!(e.buttons&2))return;
+  const g=editLookGesture;
+  const dx=e.clientX-g.lastX,dy=e.clientY-g.lastY;
+  g.lastX=e.clientX;g.lastY=e.clientY;
+  if(Math.hypot(e.clientX-g.startX,e.clientY-g.startY)>EDIT_DRAG_THRESHOLD)g.dragged=true;
+  if(!g.dragged)return;
+  yaw-=dx*.0021;pitch=clamp(pitch-dy*.0021,-1.35,1.35);
+  return;
+ }
+ if(!locked&&e.buttons!==1)return;
+ yaw-=e.movementX*.0021;pitch=clamp(pitch-e.movementY*.0021,-1.35,1.35);
+});
 document.addEventListener('keydown',e=>{if(e.code==='KeyF'&&!e.repeat){torchEnabled=!torchEnabled;torchLight.visible=torchEnabled;}keys[e.code]=true;if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});document.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 const eyeHeight=1.78,playerRadius=.43;let feet=0,verticalSpeed=0,onGround=true;const gravity=22,jumpVelocity=8.5;
 function obstructed(x,z,footY){if(Math.abs(x)>122||z>72||z< -215)return true;for(const b of collisionBoxes){if(footY<b.h-.08&&x>b.x-b.w/2-playerRadius&&x<b.x+b.w/2+playerRadius&&z>b.z-b.d/2-playerRadius&&z<b.z+b.d/2+playerRadius)return true}return false}
@@ -876,8 +895,7 @@ initializePhysics();
 // Raycast against the robot itself, excluding decorative rain droplets.
 function dogWasClicked(e){
  const rect=renderer.domElement.getBoundingClientRect();
- if(isMobileGame||document.pointerLockElement===renderer.domElement)pointerNdc.set(0,0);
- else pointerNdc.set(((e.clientX-rect.left)/rect.width)*2-1,-((e.clientY-rect.top)/rect.height)*2+1);
+ pointerNdc.set(0,0);
  selectionRay.setFromCamera(pointerNdc,camera);
  const targets=[];robot.traverse(o=>{if(o.isMesh&&o!==chassisDrops)targets.push(o)});
  const hits=selectionRay.intersectObjects(targets,false);
@@ -886,9 +904,10 @@ function dogWasClicked(e){
 
 // Both interactions use the same raycaster, including the placement cursor.
 function setRayFromEvent(e){
- const rect=renderer.domElement.getBoundingClientRect();
- if(isMobileGame||document.pointerLockElement===renderer.domElement)pointerNdc.set(0,0);
- else pointerNdc.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);
+ // The center reticle is the single aim point in all gameplay/editor modes.
+ // Moving the mouse cursor never changes where construction or selection lands.
+ camera.updateMatrixWorld();
+ pointerNdc.set(0,0);
  selectionRay.setFromCamera(pointerNdc,camera);
 }
 function openDogMenu(e){
@@ -1047,7 +1066,7 @@ function moveValidity(){
  return true;
 }
 function updateMoveValid(){moveValid=moveValidity();if(movePreview){movePreview.material.color.setHex(moveValid?0x80f7d9:0xff6674);movePreview.material.opacity=moveValid?.48:.7}$('#applyTransform').disabled=!moveValid;transformStatus.textContent=moveValid?'· POSICIÓN VÁLIDA':'· COLISIÓN';transformStatus.className=moveValid?'':'toolError';}
-function selectMoving(e,selectedBlock=null){const b=selectedBlock||moveHit(e);if(!b)return;moveTarget=b;movePhase='edit';moveOperation='translate';movePreview=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.2,1.2),new THREE.MeshBasicMaterial({color:0x80f7d9,transparent:true,opacity:.48,depthWrite:false,wireframe:true,depthTest:false}));movePreview.position.copy(b.mesh.position);movePreview.rotation.copy(b.mesh.rotation);movePreview.scale.copy(b.mesh.scale);scene.add(movePreview);editGoalPosition.copy(b.mesh.position);editGoalRotation.copy(b.mesh.rotation);editGoalScale.copy(b.mesh.scale);resetEditAnchor(e?.clientX??innerWidth/2,e?.clientY??innerHeight/2);setMoveAxis('x');movePlane.constant=-b.mesh.position.y;transformTool.style.display='block';placementHint.style.display='block';placementHint.textContent='RATÓN: MOVER · BOTÓN DERECHO + ARRASTRAR: MIRAR ARRIBA/ABAJO · CLIC IZQUIERDO: APLICAR';for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.classList.toggle('active',btn.dataset.transform==='translate');updateMoveValid();updatePrecisionLabel();dogUiBeep('select');}
+function selectMoving(e,selectedBlock=null){const b=selectedBlock||moveHit(e);if(!b)return;moveTarget=b;movePhase='edit';moveOperation='translate';movePreview=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.2,1.2),new THREE.MeshBasicMaterial({color:0x80f7d9,transparent:true,opacity:.48,depthWrite:false,wireframe:true,depthTest:false}));movePreview.position.copy(b.mesh.position);movePreview.rotation.copy(b.mesh.rotation);movePreview.scale.copy(b.mesh.scale);scene.add(movePreview);editGoalPosition.copy(b.mesh.position);editGoalRotation.copy(b.mesh.rotation);editGoalScale.copy(b.mesh.scale);resetEditAnchor(e?.clientX??innerWidth/2,e?.clientY??innerHeight/2);setMoveAxis('x');movePlane.constant=-b.mesh.position.y;transformTool.style.display='block';placementHint.style.display='block';placementHint.textContent='CRUCETA: ANCLAJE · CLIC + ARRASTRAR: MIRAR · CLIC CORTO: APLICAR';for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.classList.toggle('active',btn.dataset.transform==='translate');updateMoveValid();updatePrecisionLabel();dogUiBeep('select');}
 function commitMove(){
  if(!moveTarget||movePhase!=='edit')return;
  // Synchronize the target before validating. The ghost is deliberately smoothed,
@@ -1066,7 +1085,7 @@ function commitMove(){
  dogStatus.textContent='QUADRUPED UNIT 01 · TRANSFORMACIÓN COMPLETADA';
 }
 function applyMovedBlock(task){const b=task.move;if(!buildBlocks.includes(b))return;b.mesh.position.copy(task.position);b.mesh.rotation.copy(task.rotation);b.mesh.scale.copy(task.scale);b.vy=0;b.rest=false;rebuildBlockPhysics(b);b.collider.x=b.mesh.position.x;b.collider.z=b.mesh.position.z;b.collider.w=1.2*b.mesh.scale.x;b.collider.d=1.2*b.mesh.scale.z;}
-for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.onclick=()=>{moveOperation=btn.dataset.transform;for(const el of transformTool.querySelectorAll('[data-transform]'))el.classList.toggle('active',el===btn);transformHint.textContent=moveOperation==='translate'?'Ratón: posición · rueda: altura · botón derecho + arrastrar: mirar · clic izquierdo: aplicar.':moveOperation==='rotate'?'Ratón horizontal: girar · botón derecho + arrastrar: mirar · clic izquierdo: aplicar.':'Ratón vertical: tamaño · botón derecho + arrastrar: mirar · clic izquierdo: aplicar.';resetEditAnchor();setMoveAxis(moveOperation==='rotate'?'y':'x');dogUiBeep('select');};
+for(const btn of transformTool.querySelectorAll('[data-transform]'))btn.onclick=()=>{moveOperation=btn.dataset.transform;for(const el of transformTool.querySelectorAll('[data-transform]'))el.classList.toggle('active',el===btn);transformHint.textContent=moveOperation==='translate'?'Cruceta: posición · rueda: altura · clic y arrastra: mirar · clic corto: aplicar.':moveOperation==='rotate'?'Ratón horizontal: girar · clic y arrastra: orientar vista · clic corto: aplicar.':'Ratón vertical: tamaño · clic y arrastra: orientar vista · clic corto: aplicar.';resetEditAnchor();setMoveAxis(moveOperation==='rotate'?'y':'x');dogUiBeep('select');};
 $('#cancelTransform').onclick=()=>{stopMoving();dogUiBeep('select')};$('#applyTransform').onclick=commitMove;
 function removeBlock(obj){const idx=buildBlocks.indexOf(obj);if(idx<0)return;buildBlocks.splice(idx,1);if(physicsWorld&&obj.body){physicsWorld.removeRigidBody(obj.body);obj.body=null;}scene.remove(obj.mesh);obj.mesh.geometry.dispose();const ci=collisionBoxes.indexOf(obj.collider);if(ci>=0)collisionBoxes.splice(ci,1);for(const other of buildBlocks){if(other.mesh.position.y>obj.mesh.position.y+.5){other.rest=false;other.vy=0;}}}
 function celestialDestroySound(pos){if(!audioCtx||audioCtx.state!=='running')return;const d=camera.position.distanceTo(pos),v=1/(1+(d/15)**2),t=audioCtx.currentTime;[880,659.25,440,220].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain(),at=t+i*.11;o.type='sine';o.frequency.setValueAtTime(f,at);o.frequency.exponentialRampToValueAtTime(f*.72,at+.34);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.065*v,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.45);o.connect(g).connect(audioMaster);o.start(at);o.stop(at+.47)})}
@@ -1186,15 +1205,43 @@ function updateBlocks(dt){
  else {m.position.y=support;obj.vy=0;obj.rest=true}
  obj.collider.h=Math.max(0,m.position.y+.6*m.scale.y);
  }}
-renderer.domElement.addEventListener('pointerdown',e=>{if(!started||e.button!==0)return;if(moveMode){if(movePhase==='select')selectMoving(e);else {commitMove();}e.stopImmediatePropagation();return;}if(destroyMode){updateDestroyTarget(e);confirmDestruction();e.stopImmediatePropagation();return;}if(buildMode){const p=getBuildPoint(e);if(p&&blockAllowed(p)){buildPoint=p;setPlacementPreview(p);confirmPlacement()}e.stopImmediatePropagation();return;}if(dogWasClicked(e)){startAudio();dogUiBeep('select');openDogMenu(e);e.stopImmediatePropagation();return;}const clickedBlock=moveHit(e);if(clickedBlock){startAudio();startMoving();selectMoving(e,clickedBlock);e.stopImmediatePropagation();return;}} ,true);
-let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domElement.addEventListener('pointermove',e=>{lastBuildMouseX=e.clientX;lastBuildMouseY=e.clientY;if(moveMode){if((e.buttons&2)||e.altKey)return;if(movePhase==='edit'&&movePreview){
+// Translate target follows the camera's center ray, not the screen cursor.
+// Aim higher to select higher surfaces; wheel changes the editing plane height.
+function updateCrosshairTranslation(){
+ if(!moveMode||movePhase!=='edit'||moveOperation!=='translate')return;
+ setRayFromEvent();
+ movePlane.constant=-editGoalPosition.y;
+ if(selectionRay.ray.intersectPlane(movePlane,movePlaneHit)&&movePlaneHit.distanceTo(camera.position)<180){
+  editGoalPosition.x=THREE.MathUtils.clamp(movePlaneHit.x,-120,120);
+  editGoalPosition.z=THREE.MathUtils.clamp(movePlaneHit.z,-213,70);
+ }
+}
+renderer.domElement.addEventListener('pointerdown',e=>{
+ if(!started)return;
+ if(editingActive()&&(e.button===0||e.button===2)){
+  editLookGesture={pointerId:e.pointerId,button:e.button,startX:e.clientX,startY:e.clientY,lastX:e.clientX,lastY:e.clientY,dragged:false};
+  e.stopImmediatePropagation();return;
+ }
+ if(e.button!==0)return;
+ if(dogWasClicked(e)){startAudio();dogUiBeep('select');openDogMenu(e);e.stopImmediatePropagation();return;}
+ const clickedBlock=moveHit(e);
+ if(clickedBlock){startAudio();startMoving();selectMoving(e,clickedBlock);e.stopImmediatePropagation();return;}
+},true);
+renderer.domElement.addEventListener('pointerup',e=>{
+ const g=editLookGesture;
+ if(!g||g.pointerId!==e.pointerId)return;
+ editLookGesture=null;
+ if(g.dragged||g.button!==0)return;
+ // A click without dragging is the only gesture that executes a command.
+ if(moveMode){if(movePhase==='select')selectMoving(e);else commitMove();}
+ else if(destroyMode){updateDestroyTarget(e);confirmDestruction();}
+ else if(buildMode){const p=getBuildPoint(e);if(p&&blockAllowed(p)){buildPoint=p;setPlacementPreview(p);confirmPlacement();}}
+},true);
+window.addEventListener('pointercancel',()=>{editLookGesture=null});
+let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domElement.addEventListener('pointermove',e=>{lastBuildMouseX=e.clientX;lastBuildMouseY=e.clientY;if(moveMode){if(editLookGesture&&editLookGesture.dragged)return;if((e.buttons&2)||e.altKey)return;if(movePhase==='edit'&&movePreview){
  editLastPointerX=e.clientX;editLastPointerY=e.clientY;
  if(moveOperation==='translate'){
-   setRayFromEvent(e);movePlane.constant=-editGoalPosition.y;
-   if(selectionRay.ray.intersectPlane(movePlane,movePlaneHit)&&movePlaneHit.distanceTo(camera.position)<180){
-     editGoalPosition.x=THREE.MathUtils.clamp(movePlaneHit.x,-120,120);
-     editGoalPosition.z=THREE.MathUtils.clamp(movePlaneHit.z,-213,70);
-   }
+   updateCrosshairTranslation();
  }else if(moveOperation==='rotate'){
    editGoalRotation.y=editAnchorRotation+(e.clientX-editAnchorX)*(e.shiftKey?.003:.012);
  }else if(moveOperation==='scale'){
@@ -1203,7 +1250,7 @@ let lastBuildMouseX=innerWidth/2,lastBuildMouseY=innerHeight/2;renderer.domEleme
  }
  editPointerX=e.clientX;editPointerY=e.clientY;
  }else if(movePhase==='select'){const b=moveHit(e);placementHint.textContent=b?'✥ CLIC PARA EDITAR BLOQUE':'✥ APUNTA A UN BLOQUE · ESC CANCELA';}return;}if(destroyMode){updateDestroyTarget(e);return;}if(!buildMode)return;const p=getBuildPoint(e);setPlacementPreview(p)});
-renderer.domElement.addEventListener('contextmenu',e=>{if(moveMode)e.preventDefault()});
+renderer.domElement.addEventListener('contextmenu',e=>{if(editingActive())e.preventDefault()});
 renderer.domElement.addEventListener('pointerup',()=>{moveDragging=false});window.addEventListener('pointerup',()=>{moveDragging=false});renderer.domElement.addEventListener('wheel',e=>{if(buildMode){e.preventDefault();buildLift=THREE.MathUtils.clamp(buildLift-Math.sign(e.deltaY)*(e.shiftKey?5:1),0,100);const p=getBuildPoint({clientX:lastBuildMouseX,clientY:lastBuildMouseY});setPlacementPreview(p);placementHint.textContent='ALTURA '+(buildLift*1.2).toFixed(1)+' m · RUEDA: ±1,2 m · MAYÚS+RUEDA: ±6 m · CLIC PARA CONSTRUIR';return;}if(moveMode&&movePhase==='edit'&&movePreview&&moveOperation==='translate'){e.preventDefault();editGoalPosition.y=Math.max(.6,editGoalPosition.y-Math.sign(e.deltaY)*(e.shiftKey?.12:1.2));movePlane.constant=-editGoalPosition.y;updateMoveValid();}},{passive:false});
 document.addEventListener('pointerdown',e=>{if(!dogMenu.contains(e.target)&&!dogPanel.contains(e.target)&&e.target!==renderer.domElement)dogMenu.style.display='none'});
 document.addEventListener('keydown',e=>{if(e.code==='Escape'){if(buildMode)stopBuilding();if(destroyMode)stopDestroying();if(moveMode)stopMoving();hideDogUI()}});
@@ -1389,6 +1436,11 @@ const actualPlayerSpeed=Math.hypot(camera.position.x-lastPlayerX,camera.position
  if(onGround&&actualPlayerSpeed>.45){stepTravel+=actualPlayerSpeed*dt;const stride=(keys.ShiftLeft||mobileRun)?1.45:1.85;
  while(stepTravel>=stride){stepTravel-=stride;playerFootstep(actualPlayerSpeed)}}else stepTravel=0;
  const moving=forward||strafe;camera.position.y=eyeHeight+feet+(moving&&onGround?Math.sin(elapsed*10)*.022:0);camera.rotation.order='YXZ';camera.rotation.y=yaw;camera.rotation.x=pitch}
+if(started&&editingActive()){
+ if(buildMode){setPlacementPreview(getBuildPoint({shiftKey:!!keys.ShiftLeft}));}
+ if(destroyMode)updateDestroyTarget();
+ if(moveMode&&movePhase==='edit'&&moveOperation==='translate')updateCrosshairTranslation();
+}
 animateDog(dt,elapsed);updateBlocks(dt);updateConstructionFX(dt);if(isMobileGame&&started&&buildMode){const p=getBuildPoint({clientX:innerWidth/2,clientY:innerHeight/2});setPlacementPreview(p)}if(isMobileGame&&started&&destroyMode)updateDestroyTarget({clientX:innerWidth/2,clientY:innerHeight/2});if(buildMode&&placementPreview&&buildPoint){placementPreview.visible=true;placementPreview.position.copy(buildPoint)}dogWetClock.value=elapsed;animateChassisRain(dt);animateLegRain(dt);
 impactClock=rainEnabled?Math.min(impactClock+dt,.1):0;
 while(rainEnabled&&impactClock>.026){impactClock-=.026;const x=camera.position.x+rr(-15,15),z=camera.position.z+rr(-15,15);addImpact(x,z,elapsed)}
